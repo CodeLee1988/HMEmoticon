@@ -7,16 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HMEmoticon.h"
 
 /// 表情包模型
 @interface HMEmoticonPackage : NSObject
 
 /// 表情包分组名
 @property (nonatomic, copy, nonnull) NSString *groupName;
+/// 表情包所在目录
+@property (nonatomic, copy, nonnull) NSString *directory;
 /// 表情包中的`表情模型`数组
-@property (nonatomic, nonnull) NSMutableArray *emoticonsList;
+@property (nonatomic, nonnull) NSMutableArray <HMEmoticon *>*emoticonsList;
 
-+ (nonnull instancetype)emoticonPackageWithDict:(NSDictionary * _Nonnull)dict;
++ (nonnull instancetype)packageWithDict:(NSDictionary * _Nonnull)dict;
 - (nonnull instancetype)initWithDict:(NSDictionary * _Nonnull)dict;
 
 @end

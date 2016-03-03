@@ -7,6 +7,7 @@
 //
 
 #import "HMEmoticonManager.h"
+#import "NSBundle+HMEmoticon.h"
 
 @implementation HMEmoticonManager
 
@@ -25,6 +26,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _packages = [NSMutableArray array];
+        
         [self loadPackages];
     }
     return self;
@@ -32,7 +35,14 @@
 
 #pragma mark - 加载表情包数据
 - (void)loadPackages {
-    NSLog(@"%s", __FUNCTION__);
+    // 1. 读取 emoticons.plist
+    NSString *path = [[NSBundle hm_emoticonBundle] pathForResource:@"emoticons.plist" ofType:nil];
+    NSArray *array = [NSArray arrayWithContentsOfFile:path];
+    
+    // 2. 遍历数组，生成 packages 模型
+    for (NSDictionary *dict in array) {
+        [_packages addObject:[HMEmoticonPackage packageWithDict:dict]];
+    }
 }
 
 @end

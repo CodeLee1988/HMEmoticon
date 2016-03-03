@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HMEmoticonPackage.h"
 
 /// 表情工具类 - 提供表情视图的所有数据及处理逻辑
 @interface HMEmoticonManager : NSObject
@@ -15,6 +16,6 @@
 + (nonnull instancetype)sharedManager;
 
 /// 表情包数组
-@property (nonatomic, nonnull) NSMutableArray *packages;
+@property (nonatomic, nonnull) NSMutableArray <HMEmoticonPackage *>*packages;
 
 @end

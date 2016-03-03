@@ -12,7 +12,7 @@
 @implementation HMEmoticonPackage
 
 #pragma mark - 构造函数
-+ (instancetype)emoticonPackageWithDict:(NSDictionary *)dict {
++ (instancetype)packageWithDict:(NSDictionary *)dict {
     return [[self alloc] initWithDict:dict];
 }
 
@@ -20,24 +20,16 @@
     
     self = [super init];
     if (self) {
-        _groupName = dict[@"group_name_cn"];
+        [self setValuesForKeysWithDictionary:dict];
         
         // 创建表情数组
         _emoticonsList = [[NSMutableArray alloc] init];
-        
-        NSArray *array = dict[@"emoticons"];
-        // 遍历字典生成完整的表情数组
-        for (NSDictionary *dict in array) {
-            HMEmoticon *em = [HMEmoticon emoticonWithDict:dict];
-            
-            [_emoticonsList addObject:em];
-        }
     }
     return self;
 }
 
 - (NSString *)description {
-    NSArray *keys = @[@"groupName", @"emoticonsList"];
+    NSArray *keys = @[@"groupName", @"directory", @"emoticonsList"];
     
     return [self dictionaryWithValuesForKeys:keys].description;
 }
