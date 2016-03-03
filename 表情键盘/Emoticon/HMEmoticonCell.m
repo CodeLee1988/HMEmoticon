@@ -60,7 +60,7 @@
     
     CGFloat w = ceil((self.bounds.size.width - 2 * leftMargin) / colCount);
     CGFloat h = ceil((self.bounds.size.height - bottomMargin) / rowCount);
-
+    
     for (NSInteger i = 0; i < 21; i++) {
         NSInteger col = i % colCount;
         NSInteger row = i / colCount;

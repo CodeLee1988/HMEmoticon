@@ -49,7 +49,7 @@ static NSInteger kEmoticonToolbarTagBaseValue = 1000;
 #pragma mark - 监听方法
 /// 点击工具栏按钮
 - (void)clickToolbarButton:(UIButton *)button {
-    NSLog(@"%s", __FUNCTION__);
+    [self.delegate emoticonToolbarDidSelectSection:button.tag - kEmoticonToolbarTagBaseValue];
 }
 
 #pragma mark - 设置界面

@@ -38,11 +38,13 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 @end
 
 #pragma mark - 表情输入视图
-@interface HMEmoticonInputView() <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface HMEmoticonInputView() <UICollectionViewDataSource, UICollectionViewDelegate, HMEmoticonToolbarDelegate>
 
 @end
 
-@implementation HMEmoticonInputView
+@implementation HMEmoticonInputView {
+    UICollectionView *_collectionView;
+}
 
 #pragma mark - 构造函数
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -59,6 +61,15 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
         [self prepareUI];
     }
     return self;
+}
+
+#pragma mark - HMEmoticonToolbarDelegate
+- (void)emoticonToolbarDidSelectSection:(NSInteger)section {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+    
+    [_collectionView scrollToItemAtIndexPath:indexPath
+                            atScrollPosition:UICollectionViewScrollPositionLeft
+                                    animated:NO];
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
@@ -102,21 +113,23 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     toolbarRect.size.height = toolbarHeight;
     toolbar.frame = toolbarRect;
     
+    toolbar.delegate = self;
+    
     // 4. 添加 collectionView
     CGRect collectionViewRect = self.bounds;
     collectionViewRect.size.height -= toolbarHeight;
-    UICollectionView *collectionView = [[UICollectionView alloc]
-                                        initWithFrame:collectionViewRect
-                                        collectionViewLayout:[[HMEmoticonKeyboardLayout alloc] init]];
-    [self addSubview:collectionView];
+    _collectionView = [[UICollectionView alloc]
+                       initWithFrame:collectionViewRect
+                       collectionViewLayout:[[HMEmoticonKeyboardLayout alloc] init]];
+    [self addSubview:_collectionView];
     
     // 设置 collectionView
-    collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.backgroundColor = [UIColor clearColor];
     
-    collectionView.dataSource = self;
-    collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
     
-    [collectionView registerClass:[HMEmoticonCell class] forCellWithReuseIdentifier:HMEmoticonCellIdentifier];
+    [_collectionView registerClass:[HMEmoticonCell class] forCellWithReuseIdentifier:HMEmoticonCellIdentifier];
 }
 
 @end
