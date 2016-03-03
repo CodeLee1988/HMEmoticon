@@ -7,6 +7,8 @@
 //
 
 #import "HMEmoticonCell.h"
+#import "HMEmoticon.h"
+#import "UIImage+HMEmoticon.h"
 
 @implementation HMEmoticonCell
 
@@ -14,7 +16,19 @@
 - (void)setEmoticons:(NSArray<HMEmoticon *> *)emoticons {
     _emoticons = emoticons;
     
-    NSLog(@"%@", emoticons);
+    for (UIView *v in self.contentView.subviews) {
+        v.hidden = YES;
+    }
+    
+    NSInteger index = 0;
+    for (HMEmoticon *e in _emoticons) {
+        if (e.type == 0) {
+            UIButton *btn = (UIButton *)self.contentView.subviews[index++];
+            
+            [btn setImage:[UIImage hm_imageNamed:e.imagePath] forState:UIControlStateNormal];
+            btn.hidden = NO;
+        }
+    }
 }
 
 #pragma mark - 构造函数
@@ -47,11 +61,7 @@
             CGRect rect = CGRectMake(col * w + leftMargin, row * h, w, h);
             
             UIButton *button = [[UIButton alloc] initWithFrame:rect];
-            
-            [button setTitle:@"1" forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-            [button setBackgroundColor:[UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0]];
-            
+                        
             [self.contentView addSubview:button];
             
             [button addTarget:self

@@ -18,8 +18,7 @@
         return nil;
     }
     
-    NSString *fileName = [NSString stringWithFormat:@"%@/%@", _directory, _png];
-    return [[NSBundle hm_emoticonBundle].bundlePath stringByAppendingPathComponent:fileName];
+    return [NSString stringWithFormat:@"%@/%@", _directory, _png];
 }
 
 #pragma mark - 构造函数
