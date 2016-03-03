@@ -8,6 +8,7 @@
 
 #import "HMEmoticonToolbar.h"
 #import "UIImage+HMEmoticon.h"
+#import "HMEmoticonManager.h"
 
 /// 按钮 tag 起始数值
 static NSInteger kEmoticonToolbarTagBaseValue = 1000;
@@ -53,11 +54,14 @@ static NSInteger kEmoticonToolbarTagBaseValue = 1000;
 
 #pragma mark - 设置界面
 - (void)prepareUI {
+    
+    NSArray *packages = [HMEmoticonManager sharedManager].packages;
+    
     // 创建按钮
-    [self addChildButton:@"最近" bgImageName:@"left" type:HMEmoticonToolbarRecent];
-    [self addChildButton:@"默认" bgImageName:@"mid" type:HMEmoticonToolbarNormal];
-    [self addChildButton:@"emoji" bgImageName:@"mid" type:HMEmoticonToolbarEmoji];
-    [self addChildButton:@"浪小花" bgImageName:@"right" type:HMEmoticonToolbarLangXiaohua];
+    NSInteger index = 0;
+    for (HMEmoticonPackage *package in packages) {
+        [self addChildButton:package.groupName bgImageName:package.bgImageName type:index++];
+    }
 }
 
 - (void)addChildButton:(NSString *)title bgImageName:(NSString *)bgImageName type:(HMEmoticonToolbarType)type {
