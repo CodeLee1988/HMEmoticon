@@ -13,6 +13,29 @@
 /// 表情 Cell 可重用标识符号
 NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 
+#pragma mark - 表情键盘布局
+@interface HMEmoticonKeyboardLayout : UICollectionViewFlowLayout
+
+@end
+
+@implementation HMEmoticonKeyboardLayout
+
+- (void)prepareLayout {
+    [super prepareLayout];
+    
+    self.itemSize = self.collectionView.bounds.size;
+    self.minimumInteritemSpacing = 0;
+    self.minimumLineSpacing = 0;
+    self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    self.collectionView.pagingEnabled = YES;
+    self.collectionView.showsHorizontalScrollIndicator = NO;
+    self.collectionView.bounces = NO;
+}
+
+@end
+
+#pragma mark - 表情输入视图
 @interface HMEmoticonInputView() <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end
@@ -78,7 +101,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     collectionViewRect.size.height -= toolbarHeight;
     UICollectionView *collectionView = [[UICollectionView alloc]
                                         initWithFrame:collectionViewRect
-                                        collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+                                        collectionViewLayout:[[HMEmoticonKeyboardLayout alloc] init]];
     [self addSubview:collectionView];
     
     // 设置 collectionView
