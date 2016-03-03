@@ -7,11 +7,12 @@
 //
 
 #import "HMEmoticonInputView.h"
+#import "HMEmoticonToolbar.h"
+#import "UIImage+HMEmoticon.h"
 
 @implementation HMEmoticonInputView
 
 #pragma mark - 构造函数
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -36,7 +37,17 @@
     self.frame = rect;
 
     // 2. 基本属性设置
-    self.backgroundColor = [UIColor redColor];
+    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage hm_imageNamed:@"emoticon_keyboard_background"]];
+    
+    // 3. 添加工具栏
+    HMEmoticonToolbar *toolbar = [[HMEmoticonToolbar alloc] init];
+    [self addSubview:toolbar];
+    
+    // 设置工具栏位置
+    CGRect toolBarRect = self.bounds;
+    toolBarRect.origin.y = toolBarRect.size.height - 42;
+    toolBarRect.size.height = 42;
+    toolbar.frame = toolBarRect;
 }
 
 @end
