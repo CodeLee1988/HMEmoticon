@@ -25,7 +25,7 @@
     
     _textView.inputView = [[HMEmoticonInputView alloc] init];
     
-    NSLog(@"%@", [HMEmoticonManager sharedManager]);
+    NSLog(@"%@", [HMEmoticonManager sharedManager].packages);
 }
 
 - (void)viewDidAppear:(BOOL)animated {

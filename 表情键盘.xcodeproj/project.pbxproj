@@ -22,6 +22,7 @@
 		C2D237951C887C97005CCD39 /* HMEmoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237941C887C97005CCD39 /* HMEmoticon.m */; };
 		C2D237991C887D03005CCD39 /* HMEmoticonPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237981C887D03005CCD39 /* HMEmoticonPackage.m */; };
 		C2D2379C1C887E10005CCD39 /* HMEmoticonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D2379B1C887E10005CCD39 /* HMEmoticonManager.m */; };
+		C2D237A01C8886F6005CCD39 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D2379F1C8886F6005CCD39 /* NSArray+Log.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,8 @@
 		C2D237981C887D03005CCD39 /* HMEmoticonPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonPackage.m; sourceTree = "<group>"; };
 		C2D2379A1C887E10005CCD39 /* HMEmoticonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMEmoticonManager.h; sourceTree = "<group>"; };
 		C2D2379B1C887E10005CCD39 /* HMEmoticonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonManager.m; sourceTree = "<group>"; };
+		C2D2379E1C8886F6005CCD39 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		C2D2379F1C8886F6005CCD39 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,7 @@
 				C2D237621C885DDF005CCD39 /* AppDelegate.m */,
 				C2D237641C885DDF005CCD39 /* ViewController.h */,
 				C2D237651C885DDF005CCD39 /* ViewController.m */,
+				C2D2379D1C8886F6005CCD39 /* Log */,
 				C2D237671C885DDF005CCD39 /* Main.storyboard */,
 				C2D2376A1C885DDF005CCD39 /* Assets.xcassets */,
 				C2D2376C1C885DDF005CCD39 /* LaunchScreen.storyboard */,
@@ -152,6 +156,15 @@
 				C2D237941C887C97005CCD39 /* HMEmoticon.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		C2D2379D1C8886F6005CCD39 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				C2D2379E1C8886F6005CCD39 /* NSArray+Log.h */,
+				C2D2379F1C8886F6005CCD39 /* NSArray+Log.m */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +248,7 @@
 				C2D237901C88731A005CCD39 /* UIImage+HMEmoticon.m in Sources */,
 				C2D237951C887C97005CCD39 /* HMEmoticon.m in Sources */,
 				C2D2379C1C887E10005CCD39 /* HMEmoticonManager.m in Sources */,
+				C2D237A01C8886F6005CCD39 /* NSArray+Log.m in Sources */,
 				C2D2377E1C886AD8005CCD39 /* HMEmoticonInputView.m in Sources */,
 				C2D237991C887D03005CCD39 /* HMEmoticonPackage.m in Sources */,
 			);
