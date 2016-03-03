@@ -9,6 +9,7 @@
 #import "HMEmoticonInputView.h"
 #import "HMEmoticonToolbar.h"
 #import "UIImage+HMEmoticon.h"
+#import "HMEmoticonManager.h"
 
 /// 表情 Cell 可重用标识符号
 NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
@@ -60,8 +61,12 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return [HMEmoticonManager sharedManager].packages.count;
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 4;
+    return [[HMEmoticonManager sharedManager] numberOfPagesInSection:section];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

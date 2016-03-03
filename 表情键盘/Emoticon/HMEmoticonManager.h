@@ -15,6 +15,13 @@
 /// 表情管理器单例
 + (nonnull instancetype)sharedManager;
 
+/// 返回 section 对应的表情包中包含表情页数
+///
+/// @param section 表情分组下标
+///
+/// @return 对应页数
+- (NSInteger)numberOfPagesInSection:(NSInteger)section;
+
 /// 表情包数组
 @property (nonatomic, nonnull) NSMutableArray <HMEmoticonPackage *>*packages;
 
