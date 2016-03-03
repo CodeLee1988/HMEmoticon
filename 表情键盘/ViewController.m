@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "HMEmoticonTextView.h"
 #import "HMEmoticonInputView.h"
+#import "HMEmoticonManager.h"
 
 @interface ViewController () {
     __weak IBOutlet HMEmoticonTextView *_textView;
@@ -23,6 +24,8 @@
     _textView.text = @"hello";
     
     _textView.inputView = [[HMEmoticonInputView alloc] init];
+    
+    NSLog(@"%@", [HMEmoticonManager sharedManager].packages);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
