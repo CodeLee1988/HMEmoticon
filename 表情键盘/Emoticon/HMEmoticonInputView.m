@@ -45,6 +45,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 @implementation HMEmoticonInputView {
     UICollectionView *_collectionView;
     HMEmoticonToolbar *_toolbar;
+    UIPageControl *_pageControl;
 }
 
 #pragma mark - 构造函数
@@ -133,6 +134,35 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     _collectionView.delegate = self;
     
     [_collectionView registerClass:[HMEmoticonCell class] forCellWithReuseIdentifier:HMEmoticonCellIdentifier];
+    
+    // 5. 分页控件
+    _pageControl = [[UIPageControl alloc] init];
+    [self addSubview:_pageControl];
+    
+    // 设置分页控件
+    _pageControl.hidesForSinglePage = YES;
+    _pageControl.numberOfPages = 10;
+    _pageControl.userInteractionEnabled = NO;
+    
+    [_pageControl setValue:[UIImage hm_imageNamed:@"compose_keyboard_dot_selected"] forKey:@"_currentPageImage"];
+    [_pageControl setValue:[UIImage hm_imageNamed:@"compose_keyboard_dot_normal"] forKey:@"_pageImage"];
+    
+    // 自动布局
+    _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
+                                                     attribute:NSLayoutAttributeCenterX
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeCenterX
+                                                    multiplier:1.0
+                                                      constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
+                                                     attribute:NSLayoutAttributeBottom
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:_toolbar
+                                                     attribute:NSLayoutAttributeTop
+                                                    multiplier:1.0
+                                                      constant:0.0]];
 }
 
 @end
