@@ -26,14 +26,18 @@
         // 创建表情数组
         _emoticonsList = [[NSMutableArray alloc] init];
         
-        // 加载表情模型
-        NSString *fileName = [NSString stringWithFormat:@"%@/info.plist", _directory];
-        NSString *path = [[NSBundle hm_emoticonBundle] pathForResource:fileName ofType:nil];
-        NSArray *array = [NSArray arrayWithContentsOfFile:path];
-        
-        for (NSDictionary *dict in array) {
-            [_emoticonsList addObject:[HMEmoticon emoticonWithDict:dict]];
+        // 判断目录是否为空
+        if (_directory != nil) {
+            // 加载表情模型
+            NSString *fileName = [NSString stringWithFormat:@"%@/info.plist", _directory];
+            NSString *path = [[NSBundle hm_emoticonBundle] pathForResource:fileName ofType:nil];
+            NSArray *array = [NSArray arrayWithContentsOfFile:path];
+            
+            for (NSDictionary *dict in array) {
+                [_emoticonsList addObject:[HMEmoticon emoticonWithDict:dict]];
+            }
         }
+        
     }
     return self;
 }

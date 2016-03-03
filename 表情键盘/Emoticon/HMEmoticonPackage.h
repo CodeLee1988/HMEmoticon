@@ -15,7 +15,7 @@
 /// 表情包分组名
 @property (nonatomic, copy, nonnull) NSString *groupName;
 /// 表情包所在目录
-@property (nonatomic, copy, nonnull) NSString *directory;
+@property (nonatomic, copy, nullable) NSString *directory;
 /// 表情包中的`表情模型`数组
 @property (nonatomic, nonnull) NSMutableArray <HMEmoticon *>*emoticonsList;
 

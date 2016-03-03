@@ -4,6 +4,10 @@
 <array>
     <dict>
         <key>groupName</key>
+        <string>最近</string>
+    </dict>
+    <dict>
+        <key>groupName</key>
         <string>默认</string>
         <key>directory</key>
         <string>default</string>
