@@ -58,6 +58,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
         [_collectionView scrollToItemAtIndexPath:indexPath
                                 atScrollPosition:UICollectionViewScrollPositionLeft
                                         animated:NO];
+        [self updatePageControlWithIndexPath:indexPath];
     }
     return self;
 }
@@ -91,10 +92,27 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+#pragma mark - UIScrollView Delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGPoint center = scrollView.center;
+    center.x += scrollView.contentOffset.x;
     
-    [self updatePageControlWithIndexPath:indexPath];
-    [_toolbar selectSection:indexPath.section];
+    NSArray *indexPaths = [_collectionView indexPathsForVisibleItems];
+    
+    NSIndexPath *targetPath = nil;
+    for (NSIndexPath *indexPath in indexPaths) {
+        UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
+        
+        if (CGRectContainsPoint(cell.frame, center)) {
+            targetPath = indexPath;
+            break;
+        }
+    }
+    
+    if (targetPath != nil) {
+        [self updatePageControlWithIndexPath:targetPath];
+        [_toolbar selectSection:targetPath.section];
+    }
 }
 
 - (void)updatePageControlWithIndexPath:(NSIndexPath *)indexPath {
