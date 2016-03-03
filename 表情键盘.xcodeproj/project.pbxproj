@@ -13,6 +13,7 @@
 		C2D237691C885DDF005CCD39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D237671C885DDF005CCD39 /* Main.storyboard */; };
 		C2D2376B1C885DDF005CCD39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2D2376A1C885DDF005CCD39 /* Assets.xcassets */; };
 		C2D2376E1C885DDF005CCD39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D2376C1C885DDF005CCD39 /* LaunchScreen.storyboard */; };
+		C2D237781C885EE2005CCD39 /* HMEmoticonTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237771C885EE2005CCD39 /* HMEmoticonTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		C2D2376A1C885DDF005CCD39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2D2376D1C885DDF005CCD39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2D2376F1C885DDF005CCD39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2D237761C885EE2005CCD39 /* HMEmoticonTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMEmoticonTextView.h; sourceTree = "<group>"; };
+		C2D237771C885EE2005CCD39 /* HMEmoticonTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonTextView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 		C2D2375D1C885DDE005CCD39 /* 表情键盘 */ = {
 			isa = PBXGroup;
 			children = (
+				C2D237751C885EA4005CCD39 /* Emoticon */,
 				C2D237611C885DDE005CCD39 /* AppDelegate.h */,
 				C2D237621C885DDF005CCD39 /* AppDelegate.m */,
 				C2D237641C885DDF005CCD39 /* ViewController.h */,
@@ -77,6 +81,15 @@
 				C2D2375F1C885DDE005CCD39 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C2D237751C885EA4005CCD39 /* Emoticon */ = {
+			isa = PBXGroup;
+			children = (
+				C2D237761C885EE2005CCD39 /* HMEmoticonTextView.h */,
+				C2D237771C885EE2005CCD39 /* HMEmoticonTextView.m */,
+			);
+			path = Emoticon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,6 +118,7 @@
 		C2D237531C885DDE005CCD39 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = HM;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = itcast;
 				TargetAttributes = {
@@ -151,6 +165,7 @@
 			files = (
 				C2D237661C885DDF005CCD39 /* ViewController.m in Sources */,
 				C2D237631C885DDF005CCD39 /* AppDelegate.m in Sources */,
+				C2D237781C885EE2005CCD39 /* HMEmoticonTextView.m in Sources */,
 				C2D237601C885DDE005CCD39 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +313,7 @@
 				C2D237741C885DDF005CCD39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

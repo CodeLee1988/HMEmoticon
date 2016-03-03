@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "HMEmoticonTextView.h"
 
-@interface ViewController ()
+@interface ViewController () {
+    __weak IBOutlet HMEmoticonTextView *_textView;
+}
 
 @end
 
@@ -16,12 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    _textView.text = @"hello";
 }
 
 @end
