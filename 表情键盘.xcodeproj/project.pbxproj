@@ -24,6 +24,7 @@
 		C2D2379C1C887E10005CCD39 /* HMEmoticonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D2379B1C887E10005CCD39 /* HMEmoticonManager.m */; };
 		C2D237A01C8886F6005CCD39 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D2379F1C8886F6005CCD39 /* NSArray+Log.m */; };
 		C2D237A31C888CED005CCD39 /* HMEmoticonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237A21C888CED005CCD39 /* HMEmoticonCell.m */; };
+		C2D237A61C889976005CCD39 /* NSString+HMEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237A51C889976005CCD39 /* NSString+HMEmoji.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,8 @@
 		C2D2379F1C8886F6005CCD39 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		C2D237A11C888CED005CCD39 /* HMEmoticonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMEmoticonCell.h; sourceTree = "<group>"; };
 		C2D237A21C888CED005CCD39 /* HMEmoticonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonCell.m; sourceTree = "<group>"; };
+		C2D237A41C889976005CCD39 /* NSString+HMEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HMEmoji.h"; sourceTree = "<group>"; };
+		C2D237A51C889976005CCD39 /* NSString+HMEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HMEmoji.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 				C2D2378C1C886E6C005CCD39 /* NSBundle+HMEmoticon.m */,
 				C2D2378E1C88731A005CCD39 /* UIImage+HMEmoticon.h */,
 				C2D2378F1C88731A005CCD39 /* UIImage+HMEmoticon.m */,
+				C2D237A41C889976005CCD39 /* NSString+HMEmoji.h */,
+				C2D237A51C889976005CCD39 /* NSString+HMEmoji.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -247,6 +252,7 @@
 				C2D237A31C888CED005CCD39 /* HMEmoticonCell.m in Sources */,
 				C2D237661C885DDF005CCD39 /* ViewController.m in Sources */,
 				C2D2378D1C886E6C005CCD39 /* NSBundle+HMEmoticon.m in Sources */,
+				C2D237A61C889976005CCD39 /* NSString+HMEmoji.m in Sources */,
 				C2D237631C885DDF005CCD39 /* AppDelegate.m in Sources */,
 				C2D237781C885EE2005CCD39 /* HMEmoticonTextView.m in Sources */,
 				C2D237601C885DDE005CCD39 /* main.m in Sources */,

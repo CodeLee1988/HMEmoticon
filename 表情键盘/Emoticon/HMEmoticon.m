@@ -8,6 +8,7 @@
 
 #import "HMEmoticon.h"
 #import "NSBundle+HMEmoticon.h"
+#import "NSString+HMEmoji.h"
 
 @implementation HMEmoticon
 
@@ -19,6 +20,10 @@
     }
     
     return [NSString stringWithFormat:@"%@/%@", _directory, _png];
+}
+
+- (void)setCode:(NSString *)code {
+    _emoji = [NSString emojiWithStringCode:code];
 }
 
 #pragma mark - 构造函数
@@ -33,7 +38,7 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {}
 
 - (NSString *)description {
-    NSArray *keys = @[@"type", @"chs", @"png", @"directory", @"imagePath", @"code"];
+    NSArray *keys = @[@"type", @"chs", @"png", @"code"];
     
     return [self dictionaryWithValuesForKeys:keys].description;
 }

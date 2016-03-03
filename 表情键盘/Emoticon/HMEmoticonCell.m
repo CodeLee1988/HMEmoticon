@@ -22,12 +22,12 @@
     
     NSInteger index = 0;
     for (HMEmoticon *e in _emoticons) {
-        if (e.type == 0) {
-            UIButton *btn = (UIButton *)self.contentView.subviews[index++];
-            
-            [btn setImage:[UIImage hm_imageNamed:e.imagePath] forState:UIControlStateNormal];
-            btn.hidden = NO;
-        }
+        UIButton *btn = (UIButton *)self.contentView.subviews[index++];
+        
+        [btn setImage:[UIImage hm_imageNamed:e.imagePath] forState:UIControlStateNormal];
+        [btn setTitle:e.emoji forState:UIControlStateNormal];
+        
+        btn.hidden = NO;
     }
 }
 
