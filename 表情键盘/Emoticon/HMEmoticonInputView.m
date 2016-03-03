@@ -93,7 +93,13 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    [self updatePageControlWithIndexPath:indexPath];
     [_toolbar selectSection:indexPath.section];
+}
+
+- (void)updatePageControlWithIndexPath:(NSIndexPath *)indexPath {
+    _pageControl.numberOfPages = [[HMEmoticonManager sharedManager] numberOfPagesInSection:indexPath.section];
+    _pageControl.currentPage = indexPath.item;
 }
 
 #pragma mark - 设置界面
@@ -141,7 +147,6 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     
     // 设置分页控件
     _pageControl.hidesForSinglePage = YES;
-    _pageControl.numberOfPages = 10;
     _pageControl.userInteractionEnabled = NO;
     
     [_pageControl setValue:[UIImage hm_imageNamed:@"compose_keyboard_dot_selected"] forKey:@"_currentPageImage"];
