@@ -36,11 +36,27 @@ static NSInteger kEmoticonsCountOfPage = 20;
     return self;
 }
 
-#pragma mark - 公共方法
+#pragma mark - 数据源方法
 - (NSInteger)numberOfPagesInSection:(NSInteger)section {
     HMEmoticonPackage *package = _packages[section];
     
     return ((NSInteger)package.emoticonsList.count - 1) / kEmoticonsCountOfPage + 1;
+}
+
+- (NSArray *)emoticonsWithIndexPath:(NSIndexPath *)indexPath {
+    HMEmoticonPackage *package = self.packages[indexPath.section];
+    
+    NSInteger location = indexPath.item * kEmoticonsCountOfPage;
+    NSInteger length = kEmoticonsCountOfPage;
+    
+    // 判断是否越界
+    if ((location + length) > package.emoticonsList.count) {
+        length = package.emoticonsList.count - location;
+    }
+    
+    NSRange range = NSMakeRange(location, length);
+    
+    return [package.emoticonsList subarrayWithRange:range];
 }
 
 #pragma mark - 加载表情包数据

@@ -10,4 +10,10 @@
 
 @implementation HMEmoticonCell
 
+- (void)setEmoticons:(NSArray<HMEmoticon *> *)emoticons {
+    _emoticons = emoticons;
+    
+    NSLog(@"%@", emoticons);
+}
+
 @end

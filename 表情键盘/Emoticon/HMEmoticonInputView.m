@@ -72,11 +72,11 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView
-                                  dequeueReusableCellWithReuseIdentifier:HMEmoticonCellIdentifier
-                                  forIndexPath:indexPath];
+    HMEmoticonCell *cell = [collectionView
+                            dequeueReusableCellWithReuseIdentifier:HMEmoticonCellIdentifier
+                            forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
+    cell.emoticons = [[HMEmoticonManager sharedManager] emoticonsWithIndexPath:indexPath];
     
     return cell;
 }
