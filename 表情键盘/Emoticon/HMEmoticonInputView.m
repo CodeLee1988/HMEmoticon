@@ -44,6 +44,8 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 
 @implementation HMEmoticonInputView {
     UICollectionView *_collectionView;
+    HMEmoticonToolbar *_toolbar;
+    UIPageControl *_pageControl;
 }
 
 #pragma mark - 构造函数
@@ -51,14 +53,12 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     self = [super initWithFrame:frame];
     if (self) {
         [self prepareUI];
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self prepareUI];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+        [_collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionLeft
+                                        animated:NO];
+        [self updatePageControlWithIndexPath:indexPath];
     }
     return self;
 }
@@ -92,6 +92,34 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     return cell;
 }
 
+#pragma mark - UIScrollView Delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGPoint center = scrollView.center;
+    center.x += scrollView.contentOffset.x;
+    
+    NSArray *indexPaths = [_collectionView indexPathsForVisibleItems];
+    
+    NSIndexPath *targetPath = nil;
+    for (NSIndexPath *indexPath in indexPaths) {
+        UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
+        
+        if (CGRectContainsPoint(cell.frame, center)) {
+            targetPath = indexPath;
+            break;
+        }
+    }
+    
+    if (targetPath != nil) {
+        [self updatePageControlWithIndexPath:targetPath];
+        [_toolbar selectSection:targetPath.section];
+    }
+}
+
+- (void)updatePageControlWithIndexPath:(NSIndexPath *)indexPath {
+    _pageControl.numberOfPages = [[HMEmoticonManager sharedManager] numberOfPagesInSection:indexPath.section];
+    _pageControl.currentPage = indexPath.item;
+}
+
 #pragma mark - 设置界面
 - (void)prepareUI {
     // 1. 设置尺寸
@@ -104,16 +132,16 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     self.backgroundColor = [UIColor colorWithPatternImage:[UIImage hm_imageNamed:@"emoticon_keyboard_background"]];
     
     // 3. 添加工具栏
-    HMEmoticonToolbar *toolbar = [[HMEmoticonToolbar alloc] init];
-    [self addSubview:toolbar];
+    _toolbar = [[HMEmoticonToolbar alloc] init];
+    [self addSubview:_toolbar];
     
     // 设置工具栏位置
     CGRect toolbarRect = self.bounds;
     toolbarRect.origin.y = toolbarRect.size.height - toolbarHeight;
     toolbarRect.size.height = toolbarHeight;
-    toolbar.frame = toolbarRect;
+    _toolbar.frame = toolbarRect;
     
-    toolbar.delegate = self;
+    _toolbar.delegate = self;
     
     // 4. 添加 collectionView
     CGRect collectionViewRect = self.bounds;
@@ -130,6 +158,34 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     _collectionView.delegate = self;
     
     [_collectionView registerClass:[HMEmoticonCell class] forCellWithReuseIdentifier:HMEmoticonCellIdentifier];
+    
+    // 5. 分页控件
+    _pageControl = [[UIPageControl alloc] init];
+    [self addSubview:_pageControl];
+    
+    // 设置分页控件
+    _pageControl.hidesForSinglePage = YES;
+    _pageControl.userInteractionEnabled = NO;
+    
+    [_pageControl setValue:[UIImage hm_imageNamed:@"compose_keyboard_dot_selected"] forKey:@"_currentPageImage"];
+    [_pageControl setValue:[UIImage hm_imageNamed:@"compose_keyboard_dot_normal"] forKey:@"_pageImage"];
+    
+    // 自动布局
+    _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
+                                                     attribute:NSLayoutAttributeCenterX
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeCenterX
+                                                    multiplier:1.0
+                                                      constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
+                                                     attribute:NSLayoutAttributeBottom
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:_toolbar
+                                                     attribute:NSLayoutAttributeTop
+                                                    multiplier:1.0
+                                                      constant:0.0]];
 }
 
 @end

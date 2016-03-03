@@ -48,6 +48,13 @@ static NSInteger kEmoticonToolbarTagBaseValue = 1000;
     }
 }
 
+#pragma mark - 公共方法
+- (void)selectSection:(NSInteger)section {
+    UIButton *button = [self viewWithTag:(section + kEmoticonToolbarTagBaseValue)];
+    
+    [self selectedButtonWithButton:button];
+}
+
 #pragma mark - 监听方法
 /// 点击工具栏按钮
 - (void)clickToolbarButton:(UIButton *)button {
