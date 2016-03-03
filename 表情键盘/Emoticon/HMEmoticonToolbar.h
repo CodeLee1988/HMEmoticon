@@ -16,6 +16,17 @@ typedef enum : NSUInteger {
     HMEmoticonToolbarLangXiaohua,
 } HMEmoticonToolbarType;
 
+@protocol HMEmoticonToolbarDelegate;
+
 @interface HMEmoticonToolbar : UIView
+@property (nonatomic, weak, nullable) id<HMEmoticonToolbarDelegate> delegate;
+@end
+
+@protocol HMEmoticonToolbarDelegate <NSObject>
+
+/// 表情工具栏选中分组
+///
+/// @param section 分组
+- (void)emoticonToolbarDidSelectSection:(NSInteger)section;
 
 @end

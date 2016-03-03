@@ -8,11 +8,14 @@
 
 #import "HMEmoticonToolbar.h"
 #import "UIImage+HMEmoticon.h"
+#import "HMEmoticonManager.h"
 
 /// 按钮 tag 起始数值
 static NSInteger kEmoticonToolbarTagBaseValue = 1000;
 
-@implementation HMEmoticonToolbar
+@implementation HMEmoticonToolbar {
+    UIButton *_selectedButton;
+}
 
 #pragma mark - 构造函数
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -48,16 +51,31 @@ static NSInteger kEmoticonToolbarTagBaseValue = 1000;
 #pragma mark - 监听方法
 /// 点击工具栏按钮
 - (void)clickToolbarButton:(UIButton *)button {
-    NSLog(@"%s", __FUNCTION__);
+    if (button == _selectedButton) {
+        return;
+    }
+    [self selectedButtonWithButton:button];
+    
+    [self.delegate emoticonToolbarDidSelectSection:button.tag - kEmoticonToolbarTagBaseValue];
+}
+
+/// 将指定的按钮设置为选中按钮
+- (void)selectedButtonWithButton:(UIButton *)button {
+    button.selected = !button.selected;
+    _selectedButton.selected = !_selectedButton.selected;
+    _selectedButton = button;
 }
 
 #pragma mark - 设置界面
 - (void)prepareUI {
+    
+    NSArray *packages = [HMEmoticonManager sharedManager].packages;
+    
     // 创建按钮
-    [self addChildButton:@"最近" bgImageName:@"left" type:HMEmoticonToolbarRecent];
-    [self addChildButton:@"默认" bgImageName:@"mid" type:HMEmoticonToolbarNormal];
-    [self addChildButton:@"emoji" bgImageName:@"mid" type:HMEmoticonToolbarEmoji];
-    [self addChildButton:@"浪小花" bgImageName:@"right" type:HMEmoticonToolbarLangXiaohua];
+    NSInteger index = 0;
+    for (HMEmoticonPackage *package in packages) {
+        [self addChildButton:package.groupName bgImageName:package.bgImageName type:index++];
+    }
 }
 
 - (void)addChildButton:(NSString *)title bgImageName:(NSString *)bgImageName type:(HMEmoticonToolbarType)type {

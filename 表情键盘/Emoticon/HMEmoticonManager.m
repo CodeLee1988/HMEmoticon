@@ -9,6 +9,9 @@
 #import "HMEmoticonManager.h"
 #import "NSBundle+HMEmoticon.h"
 
+// 每页显示的表情数量
+static NSInteger kEmoticonsCountOfPage = 20;
+
 @implementation HMEmoticonManager
 
 #pragma mark - 单例 & 构造函数
@@ -31,6 +34,29 @@
         [self loadPackages];
     }
     return self;
+}
+
+#pragma mark - 数据源方法
+- (NSInteger)numberOfPagesInSection:(NSInteger)section {
+    HMEmoticonPackage *package = _packages[section];
+    
+    return ((NSInteger)package.emoticonsList.count - 1) / kEmoticonsCountOfPage + 1;
+}
+
+- (NSArray *)emoticonsWithIndexPath:(NSIndexPath *)indexPath {
+    HMEmoticonPackage *package = self.packages[indexPath.section];
+    
+    NSInteger location = indexPath.item * kEmoticonsCountOfPage;
+    NSInteger length = kEmoticonsCountOfPage;
+    
+    // 判断是否越界
+    if ((location + length) > package.emoticonsList.count) {
+        length = package.emoticonsList.count - location;
+    }
+    
+    NSRange range = NSMakeRange(location, length);
+    
+    return [package.emoticonsList subarrayWithRange:range];
 }
 
 #pragma mark - 加载表情包数据

@@ -7,8 +7,24 @@
 //
 
 #import "HMEmoticon.h"
+#import "NSBundle+HMEmoticon.h"
+#import "NSString+HMEmoji.h"
 
 @implementation HMEmoticon
+
+#pragma mark - 计算型属性 
+- (NSString *)imagePath {
+    
+    if (_type == 1) {
+        return nil;
+    }
+    
+    return [NSString stringWithFormat:@"%@/%@", _directory, _png];
+}
+
+- (void)setCode:(NSString *)code {
+    _emoji = [NSString emojiWithStringCode:code];
+}
 
 #pragma mark - 构造函数
 + (instancetype)emoticonWithDict:(NSDictionary *)dict {

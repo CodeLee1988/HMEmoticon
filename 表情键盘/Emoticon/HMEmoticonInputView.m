@@ -9,6 +9,8 @@
 #import "HMEmoticonInputView.h"
 #import "HMEmoticonToolbar.h"
 #import "UIImage+HMEmoticon.h"
+#import "HMEmoticonManager.h"
+#import "HMEmoticonCell.h"
 
 /// 表情 Cell 可重用标识符号
 NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
@@ -36,11 +38,13 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 @end
 
 #pragma mark - 表情输入视图
-@interface HMEmoticonInputView() <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface HMEmoticonInputView() <UICollectionViewDataSource, UICollectionViewDelegate, HMEmoticonToolbarDelegate>
 
 @end
 
-@implementation HMEmoticonInputView
+@implementation HMEmoticonInputView {
+    UICollectionView *_collectionView;
+}
 
 #pragma mark - 构造函数
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -59,18 +63,31 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     return self;
 }
 
+#pragma mark - HMEmoticonToolbarDelegate
+- (void)emoticonToolbarDidSelectSection:(NSInteger)section {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+    
+    [_collectionView scrollToItemAtIndexPath:indexPath
+                            atScrollPosition:UICollectionViewScrollPositionLeft
+                                    animated:NO];
+}
+
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return [HMEmoticonManager sharedManager].packages.count;
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 4;
+    return [[HMEmoticonManager sharedManager] numberOfPagesInSection:section];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView
-                                  dequeueReusableCellWithReuseIdentifier:HMEmoticonCellIdentifier
-                                  forIndexPath:indexPath];
+    HMEmoticonCell *cell = [collectionView
+                            dequeueReusableCellWithReuseIdentifier:HMEmoticonCellIdentifier
+                            forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
+    cell.emoticons = [[HMEmoticonManager sharedManager] emoticonsWithIndexPath:indexPath];
     
     return cell;
 }
@@ -96,21 +113,23 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     toolbarRect.size.height = toolbarHeight;
     toolbar.frame = toolbarRect;
     
+    toolbar.delegate = self;
+    
     // 4. 添加 collectionView
     CGRect collectionViewRect = self.bounds;
     collectionViewRect.size.height -= toolbarHeight;
-    UICollectionView *collectionView = [[UICollectionView alloc]
-                                        initWithFrame:collectionViewRect
-                                        collectionViewLayout:[[HMEmoticonKeyboardLayout alloc] init]];
-    [self addSubview:collectionView];
+    _collectionView = [[UICollectionView alloc]
+                       initWithFrame:collectionViewRect
+                       collectionViewLayout:[[HMEmoticonKeyboardLayout alloc] init]];
+    [self addSubview:_collectionView];
     
     // 设置 collectionView
-    collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.backgroundColor = [UIColor clearColor];
     
-    collectionView.dataSource = self;
-    collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
     
-    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:HMEmoticonCellIdentifier];
+    [_collectionView registerClass:[HMEmoticonCell class] forCellWithReuseIdentifier:HMEmoticonCellIdentifier];
 }
 
 @end
