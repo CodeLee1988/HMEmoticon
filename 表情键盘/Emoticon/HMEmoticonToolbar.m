@@ -13,7 +13,9 @@
 /// 按钮 tag 起始数值
 static NSInteger kEmoticonToolbarTagBaseValue = 1000;
 
-@implementation HMEmoticonToolbar
+@implementation HMEmoticonToolbar {
+    UIButton *_selectedButton;
+}
 
 #pragma mark - 构造函数
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -49,7 +51,19 @@ static NSInteger kEmoticonToolbarTagBaseValue = 1000;
 #pragma mark - 监听方法
 /// 点击工具栏按钮
 - (void)clickToolbarButton:(UIButton *)button {
+    if (button == _selectedButton) {
+        return;
+    }
+    [self selectedButtonWithButton:button];
+    
     [self.delegate emoticonToolbarDidSelectSection:button.tag - kEmoticonToolbarTagBaseValue];
+}
+
+/// 将指定的按钮设置为选中按钮
+- (void)selectedButtonWithButton:(UIButton *)button {
+    button.selected = !button.selected;
+    _selectedButton.selected = !_selectedButton.selected;
+    _selectedButton = button;
 }
 
 #pragma mark - 设置界面
