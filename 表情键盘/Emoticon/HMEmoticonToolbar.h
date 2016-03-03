@@ -20,6 +20,11 @@ typedef enum : NSUInteger {
 
 @interface HMEmoticonToolbar : UIView
 @property (nonatomic, weak, nullable) id<HMEmoticonToolbarDelegate> delegate;
+
+/// 选中指定分组
+///
+/// @param section 分组
+- (void)selectSection:(NSInteger)section;
 @end
 
 @protocol HMEmoticonToolbarDelegate <NSObject>

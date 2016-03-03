@@ -44,6 +44,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 
 @implementation HMEmoticonInputView {
     UICollectionView *_collectionView;
+    HMEmoticonToolbar *_toolbar;
 }
 
 #pragma mark - 构造函数
@@ -51,14 +52,11 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     self = [super initWithFrame:frame];
     if (self) {
         [self prepareUI];
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self prepareUI];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+        [_collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionLeft
+                                        animated:NO];
     }
     return self;
 }
@@ -92,6 +90,11 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [_toolbar selectSection:indexPath.section];
+}
+
 #pragma mark - 设置界面
 - (void)prepareUI {
     // 1. 设置尺寸
@@ -104,16 +107,16 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     self.backgroundColor = [UIColor colorWithPatternImage:[UIImage hm_imageNamed:@"emoticon_keyboard_background"]];
     
     // 3. 添加工具栏
-    HMEmoticonToolbar *toolbar = [[HMEmoticonToolbar alloc] init];
-    [self addSubview:toolbar];
+    _toolbar = [[HMEmoticonToolbar alloc] init];
+    [self addSubview:_toolbar];
     
     // 设置工具栏位置
     CGRect toolbarRect = self.bounds;
     toolbarRect.origin.y = toolbarRect.size.height - toolbarHeight;
     toolbarRect.size.height = toolbarHeight;
-    toolbar.frame = toolbarRect;
+    _toolbar.frame = toolbarRect;
     
-    toolbar.delegate = self;
+    _toolbar.delegate = self;
     
     // 4. 添加 collectionView
     CGRect collectionViewRect = self.bounds;
