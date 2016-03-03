@@ -7,8 +7,20 @@
 //
 
 #import "HMEmoticon.h"
+#import "NSBundle+HMEmoticon.h"
 
 @implementation HMEmoticon
+
+#pragma mark - 计算型属性 
+- (NSString *)imagePath {
+    
+    if (_type == 1) {
+        return nil;
+    }
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@/%@", _directory, _png];
+    return [[NSBundle hm_emoticonBundle].bundlePath stringByAppendingPathComponent:fileName];
+}
 
 #pragma mark - 构造函数
 + (instancetype)emoticonWithDict:(NSDictionary *)dict {
@@ -22,7 +34,7 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {}
 
 - (NSString *)description {
-    NSArray *keys = @[@"type", @"chs", @"png", @"code"];
+    NSArray *keys = @[@"type", @"chs", @"png", @"directory", @"imagePath", @"code"];
     
     return [self dictionaryWithValuesForKeys:keys].description;
 }

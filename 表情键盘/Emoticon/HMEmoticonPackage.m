@@ -35,6 +35,7 @@
             
             for (NSDictionary *dict in array) {
                 [_emoticonsList addObject:[HMEmoticon emoticonWithDict:dict]];
+                _emoticonsList.lastObject.directory = _directory;
             }
         }
         
