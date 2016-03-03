@@ -19,10 +19,11 @@
     for (UIView *v in self.contentView.subviews) {
         v.hidden = YES;
     }
+    self.contentView.subviews.lastObject.hidden = NO;
     
     NSInteger index = 0;
     for (HMEmoticon *e in _emoticons) {
-        UIButton *btn = (UIButton *)self.contentView.subviews[index++];
+        UIButton *btn = self.contentView.subviews[index++];
         
         [btn setImage:[UIImage hm_imageNamed:e.imagePath] forState:UIControlStateNormal];
         [btn setTitle:e.emoji forState:UIControlStateNormal];
@@ -42,7 +43,11 @@
 
 #pragma mark - 监听方法
 - (void)clickEmoticonButton:(UIButton *)button {
-    NSLog(@"%s", __FUNCTION__);
+    if (button == self.contentView.subviews.lastObject) {
+        NSLog(@"删除");
+    } else {
+        NSLog(@"表情按钮 %zd", button.tag);
+    }
 }
 
 #pragma mark - 设置界面
@@ -55,20 +60,30 @@
     
     CGFloat w = ceil((self.bounds.size.width - 2 * leftMargin) / colCount);
     CGFloat h = ceil((self.bounds.size.height - bottomMargin) / rowCount);
-    
-    for (NSInteger row = 0; row < rowCount; row++) {
-        for (NSInteger col = 0; col < colCount; col++) {
-            CGRect rect = CGRectMake(col * w + leftMargin, row * h, w, h);
-            
-            UIButton *button = [[UIButton alloc] initWithFrame:rect];
-                        
-            [self.contentView addSubview:button];
-            
-            [button addTarget:self
-                       action:@selector(clickEmoticonButton:)
-             forControlEvents:UIControlEventTouchUpInside];
-        }
+
+    for (NSInteger i = 0; i < 21; i++) {
+        NSInteger col = i % colCount;
+        NSInteger row = i / colCount;
+        
+        CGRect rect = CGRectMake(col * w + leftMargin, row * h, w, h);
+        UIButton *button = [[UIButton alloc] initWithFrame:rect];
+        
+        button.tag = i;
+        button.titleLabel.font = [UIFont systemFontOfSize:32];
+        
+        [self.contentView addSubview:button];
+        
+        [button addTarget:self
+                   action:@selector(clickEmoticonButton:)
+         forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    // 删除按钮
+    UIButton *button = self.contentView.subviews.lastObject;
+    [button setImage:[UIImage hm_imageNamed:@"compose_emotion_delete"]
+            forState:UIControlStateNormal];
+    [button setImage:[UIImage hm_imageNamed:@"compose_emotion_delete_highlighted"]
+            forState:UIControlStateHighlighted];
 }
 
 @end
