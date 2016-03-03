@@ -10,6 +10,7 @@
 #import "HMEmoticonToolbar.h"
 #import "UIImage+HMEmoticon.h"
 #import "HMEmoticonManager.h"
+#import "HMEmoticonCell.h"
 
 /// 表情 Cell 可重用标识符号
 NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
@@ -115,7 +116,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     collectionView.dataSource = self;
     collectionView.delegate = self;
     
-    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:HMEmoticonCellIdentifier];
+    [collectionView registerClass:[HMEmoticonCell class] forCellWithReuseIdentifier:HMEmoticonCellIdentifier];
 }
 
 @end

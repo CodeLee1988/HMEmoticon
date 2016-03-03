@@ -23,6 +23,7 @@
 		C2D237991C887D03005CCD39 /* HMEmoticonPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237981C887D03005CCD39 /* HMEmoticonPackage.m */; };
 		C2D2379C1C887E10005CCD39 /* HMEmoticonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D2379B1C887E10005CCD39 /* HMEmoticonManager.m */; };
 		C2D237A01C8886F6005CCD39 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D2379F1C8886F6005CCD39 /* NSArray+Log.m */; };
+		C2D237A31C888CED005CCD39 /* HMEmoticonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237A21C888CED005CCD39 /* HMEmoticonCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,8 @@
 		C2D2379B1C887E10005CCD39 /* HMEmoticonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonManager.m; sourceTree = "<group>"; };
 		C2D2379E1C8886F6005CCD39 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
 		C2D2379F1C8886F6005CCD39 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
+		C2D237A11C888CED005CCD39 /* HMEmoticonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMEmoticonCell.h; sourceTree = "<group>"; };
+		C2D237A21C888CED005CCD39 /* HMEmoticonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +121,8 @@
 				C2D237771C885EE2005CCD39 /* HMEmoticonTextView.m */,
 				C2D2377C1C886AD8005CCD39 /* HMEmoticonInputView.h */,
 				C2D2377D1C886AD8005CCD39 /* HMEmoticonInputView.m */,
-				C2D237961C887C9B005CCD39 /* Model */,
 				C2D237921C887941005CCD39 /* Views */,
+				C2D237961C887C9B005CCD39 /* Model */,
 				C2D237911C887937005CCD39 /* Categories */,
 			);
 			path = Emoticon;
@@ -141,6 +144,8 @@
 			children = (
 				C2D237831C886C66005CCD39 /* HMEmoticonToolbar.h */,
 				C2D237841C886C66005CCD39 /* HMEmoticonToolbar.m */,
+				C2D237A11C888CED005CCD39 /* HMEmoticonCell.h */,
+				C2D237A21C888CED005CCD39 /* HMEmoticonCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2D237A31C888CED005CCD39 /* HMEmoticonCell.m in Sources */,
 				C2D237661C885DDF005CCD39 /* ViewController.m in Sources */,
 				C2D2378D1C886E6C005CCD39 /* NSBundle+HMEmoticon.m in Sources */,
 				C2D237631C885DDF005CCD39 /* AppDelegate.m in Sources */,
