@@ -9,12 +9,9 @@
 #import "ViewController.h"
 #import "HMEmoticonTextView.h"
 #import "HMEmoticonInputView.h"
-#import "HMEmoticonManager.h"
 
-@interface ViewController () {
-    __weak IBOutlet HMEmoticonTextView *_textView;
-}
-
+@interface ViewController ()
+@property (strong, nonatomic) IBOutlet HMEmoticonTextView *textView;
 @end
 
 @implementation ViewController
@@ -23,11 +20,10 @@
     [super viewDidLoad];
     _textView.text = @"hello";
     
+    __weak typeof(self) weakSelf = self;
     _textView.inputView = [[HMEmoticonInputView alloc] initWithSelectedEmoticon:^(HMEmoticon * _Nullable emoticon, BOOL isRemoved) {
-        NSLog(@"%@ %d", emoticon, isRemoved);
+        [weakSelf.textView inputEmoticon:emoticon isRemoved:isRemoved];
     }];
-    
-    NSLog(@"%@", [HMEmoticonManager sharedManager].packages);
 }
 
 - (void)viewDidAppear:(BOOL)animated {

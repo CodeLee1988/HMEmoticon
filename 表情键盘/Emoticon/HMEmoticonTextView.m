@@ -7,6 +7,8 @@
 //
 
 #import "HMEmoticonTextView.h"
+#import "HMEmoticonManager.h"
+#import "UIImage+HMEmoticon.h"
 
 @implementation HMEmoticonTextView {
     UILabel *_placeHolderLabel;
@@ -62,7 +64,40 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - 监听方
+#pragma mark - 公共函数
+- (void)inputEmoticon:(HMEmoticon *)emoticon isRemoved:(BOOL)isRemoved {
+    
+    if (isRemoved) {
+        [self deleteBackward];
+        
+        return;
+    }
+    
+    if (emoticon.isEmoji) {
+        [self replaceRange:[self selectedTextRange] withText:emoticon.emoji];
+        
+        return;
+    }
+    
+    NSMutableAttributedString *attributeText = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+    
+    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+    attachment.image = [UIImage hm_imageNamed:emoticon.imagePath];
+    CGFloat lineHeight = self.font.lineHeight;
+    attachment.bounds = CGRectMake(0, -4, lineHeight, lineHeight);
+    
+    NSMutableAttributedString *emoticonStr = [[NSMutableAttributedString alloc] initWithAttributedString:
+                                              [NSAttributedString attributedStringWithAttachment:attachment]];
+    [emoticonStr addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0, 1)];
+    
+    NSRange range = self.selectedRange;
+    [attributeText replaceCharactersInRange:range withAttributedString:emoticonStr];
+    
+    self.attributedText = attributeText;
+    self.selectedRange = NSMakeRange(range.location + 1, 0);
+}
+
+#pragma mark - 监听方法
 - (void)textChanged {
     _placeHolderLabel.hidden = self.hasText;
     

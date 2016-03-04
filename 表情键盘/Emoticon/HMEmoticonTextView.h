@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class HMEmoticon;
 
 IB_DESIGNABLE
 @interface HMEmoticonTextView : UITextView
 /// 占位文本
-@property (nonatomic, copy) IBInspectable NSString *placeholder;
+@property (nonatomic, copy, nullable) IBInspectable NSString *placeholder;
 /// 最大输入文本长度
 @property (nonatomic) IBInspectable NSInteger maxInputLength;
+
+/// 在当前光标位置插入表情图片
+///
+/// @param emoticon  表情模型
+/// @param isRemoved 是否删除
+- (void)inputEmoticon:(HMEmoticon * _Nullable)emoticon isRemoved:(BOOL)isRemoved;
 @end
