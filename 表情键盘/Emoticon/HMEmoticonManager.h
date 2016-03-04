@@ -17,6 +17,8 @@
 
 /// 表情包数组
 @property (nonatomic, nonnull) NSMutableArray <HMEmoticonPackage *>*packages;
+/// 用户标识符，默认是 cn.itcast.DefaultUser
+@property (nonatomic, copy, nonnull) NSString *userIdentifier;
 
 #pragma mark - 数据源方法
 /// 返回 section 对应的表情包中包含表情页数

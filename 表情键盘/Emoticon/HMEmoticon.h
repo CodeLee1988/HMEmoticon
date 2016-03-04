@@ -32,4 +32,7 @@
 
 + (nonnull instancetype)emoticonWithDict:(NSDictionary * _Nonnull)dict;
 
+/// 保存使用的字典
+- (NSDictionary * _Nonnull)dictionary;
+
 @end

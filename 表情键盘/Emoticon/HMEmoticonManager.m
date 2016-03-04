@@ -9,8 +9,12 @@
 #import "HMEmoticonManager.h"
 #import "NSBundle+HMEmoticon.h"
 
-// 每页显示的表情数量
+/// 每页显示的表情数量
 static NSInteger kEmoticonsCountOfPage = 20;
+/// 默认用户标识符号
+NSString *const HMEmoticonDefaultUserIdentifier = @"cn.itcast.DefaultUser";
+/// 表情文件名
+NSString *const HMEmoticonFileName = @".emoticons.json";
 
 @implementation HMEmoticonManager {
     NSMutableArray <HMEmoticon *> *_recentEmoticonList;
@@ -79,6 +83,23 @@ static NSInteger kEmoticonsCountOfPage = 20;
     // 3. 设置第[0]组表情包数组
     NSInteger length = _recentEmoticonList.count < kEmoticonsCountOfPage ? _recentEmoticonList.count : kEmoticonsCountOfPage;
     _packages[0].emoticonsList = [_recentEmoticonList subarrayWithRange:NSMakeRange(0, length)].mutableCopy;
+    
+    [self saveRecentEmoticonList];
+}
+
+/// 保存最近表情数组
+- (void)saveRecentEmoticonList {
+    
+    NSString *dir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
+    NSString *filePath = [[dir stringByAppendingPathComponent:self.userIdentifier] stringByAppendingString:HMEmoticonFileName];
+    
+    NSMutableArray *jsonDict = [NSMutableArray array];
+    for (HMEmoticon *emoticon in _recentEmoticonList) {
+        [jsonDict addObject:[emoticon dictionary]];
+    }
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONWritingPrettyPrinted error:NULL];
+    [data writeToFile:filePath atomically:YES];
 }
 
 #pragma mark - 加载表情包数据
@@ -94,6 +115,14 @@ static NSInteger kEmoticonsCountOfPage = 20;
     for (NSDictionary *dict in array) {
         [_packages addObject:[HMEmoticonPackage packageWithDict:dict]];
     }
+}
+
+#pragma mark - 懒加载属性
+- (NSString *)userIdentifier {
+    if (_userIdentifier == nil) {
+        _userIdentifier = HMEmoticonDefaultUserIdentifier;
+    }
+    return _userIdentifier;
 }
 
 @end
