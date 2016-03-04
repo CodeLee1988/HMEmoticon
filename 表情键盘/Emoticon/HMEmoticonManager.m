@@ -90,16 +90,26 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
 /// 保存最近表情数组
 - (void)saveRecentEmoticonList {
     
-    NSString *dir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
-    NSString *filePath = [[dir stringByAppendingPathComponent:self.userIdentifier] stringByAppendingString:HMEmoticonFileName];
-    
     NSMutableArray *jsonDict = [NSMutableArray array];
     for (HMEmoticon *emoticon in _recentEmoticonList) {
         [jsonDict addObject:[emoticon dictionary]];
     }
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONWritingPrettyPrinted error:NULL];
-    [data writeToFile:filePath atomically:YES];
+    [data writeToFile:[self filePathForRecentEmoticon] atomically:YES];
+}
+
+/// 加载最近表情数组
+///
+/// @return 最近表情数组
+- (NSMutableArray <HMEmoticon *>*)loadRecentEmoticonList {
+    return nil;
+}
+
+/// 最近表情文件路径
+- (NSString *)filePathForRecentEmoticon {
+    NSString *dir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
+    return [[dir stringByAppendingPathComponent:self.userIdentifier] stringByAppendingString:HMEmoticonFileName];
 }
 
 #pragma mark - 加载表情包数据
