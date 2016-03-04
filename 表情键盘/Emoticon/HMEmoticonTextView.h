@@ -23,7 +23,7 @@ IB_DESIGNABLE
 ///
 /// @param emoticon  表情模型
 /// @param isRemoved 是否删除
-- (void)inputEmoticon:(HMEmoticon * _Nullable)emoticon isRemoved:(BOOL)isRemoved;
+- (void)insertEmoticon:(HMEmoticon * _Nullable)emoticon isRemoved:(BOOL)isRemoved;
 
 /// 更新长度提示标签底部约束
 - (void)updateTipLabelBottomConstraints:(UIView * _Nonnull)view;

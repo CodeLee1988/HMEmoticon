@@ -94,7 +94,7 @@
     return stringM.copy;
 }
 
-- (void)inputEmoticon:(HMEmoticon *)emoticon isRemoved:(BOOL)isRemoved {
+- (void)insertEmoticon:(HMEmoticon *)emoticon isRemoved:(BOOL)isRemoved {
     
     if (isRemoved) {
         [self deleteBackward];
@@ -158,7 +158,7 @@
 - (void)textChanged {
     _placeHolderLabel.hidden = self.hasText;
     
-    NSInteger len = _maxInputLength - self.text.length;
+    NSInteger len = _maxInputLength - self.emoticonText.length;
     _lengthTipLabel.text = [NSString stringWithFormat:@"%zd", len];
     _lengthTipLabel.textColor = (len >= 0) ? [UIColor lightGrayColor] : [UIColor redColor];
 }

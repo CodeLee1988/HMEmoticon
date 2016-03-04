@@ -33,7 +33,7 @@
     // 3. 设置表情输入视图
     __weak typeof(self) weakSelf = self;
     _textView.inputView = [[HMEmoticonInputView alloc] initWithSelectedEmoticon:^(HMEmoticon * _Nullable emoticon, BOOL isRemoved) {
-        [weakSelf.textView inputEmoticon:emoticon isRemoved:isRemoved];
+        [weakSelf.textView insertEmoticon:emoticon isRemoved:isRemoved];
     }];
     
     // 4. 监听键盘通知
