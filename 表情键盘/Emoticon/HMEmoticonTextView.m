@@ -39,6 +39,12 @@
     [self textChanged];
 }
 
+- (void)setAttributedText:(NSAttributedString *)attributedText {
+    [super setAttributedText:attributedText];
+    
+    [self textChanged];
+}
+
 #pragma mark - 构造函数
 - (instancetype)initWithFrame:(CGRect)frame textContainer:(NSTextContainer *)textContainer {
     self = [super initWithFrame:frame textContainer:textContainer];
@@ -110,6 +116,9 @@
     
     self.attributedText = attributeText;
     self.selectedRange = NSMakeRange(range.location + 1, 0);
+    
+    [self.delegate textViewDidChange:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:self];
 }
 
 #pragma mark - 监听方法

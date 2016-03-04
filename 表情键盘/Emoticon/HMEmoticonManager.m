@@ -8,6 +8,7 @@
 
 #import "HMEmoticonManager.h"
 #import "NSBundle+HMEmoticon.h"
+#import "HMEmoticonAttachment.h"
 
 /// 每页显示的表情数量
 static NSInteger kEmoticonsCountOfPage = 20;
@@ -45,17 +46,34 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
 }
 
 #pragma mark - 字符串转换
-- (NSAttributedString *)emoticonStringWithString:(NSString *)string {
+- (NSAttributedString *)emoticonStringWithString:(NSString *)string font:(UIFont *)font {
     
-    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] init];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
+                                                   initWithString:string
+                                                   attributes:@{NSFontAttributeName: font}];
     
-    NSLog(@"%@", [self emoticonWithString:@"[哈哈]"]);
+    NSString *pattern = @"\\[.*?\\]";
+    NSRegularExpression *regx = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:NULL];
     
-    return attributeString.copy;
+    NSArray *matches = [regx matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+    for (NSTextCheckingResult *result in matches.reverseObjectEnumerator) {
+        
+        NSRange range = [result rangeAtIndex:0];
+        NSString *str = [string substringWithRange:range];
+        
+        HMEmoticon *emoticon = [self emoticonWithString:str];
+        if (emoticon != nil) {
+            NSAttributedString *emoticonString = [HMEmoticonAttachment emoticonStringWithEmoticon:emoticon font:font];
+            
+            [attributedString replaceCharactersInRange:range withAttributedString:emoticonString];
+        }
+    }
+    
+    return attributedString.copy;
 }
 
 - (HMEmoticon *)emoticonWithString:(NSString *)string {
-
+    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chs == %@", string];
     HMEmoticon *emoticon = nil;
     
