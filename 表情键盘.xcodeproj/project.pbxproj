@@ -28,6 +28,7 @@
 		C2D237A91C88A94C005CCD39 /* NSObject+Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237A81C88A94C005CCD39 /* NSObject+Runtime.m */; };
 		C2F68EBD1C89F2A500742258 /* HMEmoticonTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F68EBC1C89F2A500742258 /* HMEmoticonTipView.m */; };
 		C2F68EC01C89F87600742258 /* HMEmoticonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F68EBF1C89F87600742258 /* HMEmoticonButton.m */; };
+		C2F68EC31C8A101500742258 /* HMEmoticonAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F68EC21C8A101500742258 /* HMEmoticonAttachment.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,8 @@
 		C2F68EBC1C89F2A500742258 /* HMEmoticonTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonTipView.m; sourceTree = "<group>"; };
 		C2F68EBE1C89F87600742258 /* HMEmoticonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMEmoticonButton.h; sourceTree = "<group>"; };
 		C2F68EBF1C89F87600742258 /* HMEmoticonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonButton.m; sourceTree = "<group>"; };
+		C2F68EC11C8A101500742258 /* HMEmoticonAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMEmoticonAttachment.h; sourceTree = "<group>"; };
+		C2F68EC21C8A101500742258 /* HMEmoticonAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonAttachment.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,8 @@
 				C2D237771C885EE2005CCD39 /* HMEmoticonTextView.m */,
 				C2D2377C1C886AD8005CCD39 /* HMEmoticonInputView.h */,
 				C2D2377D1C886AD8005CCD39 /* HMEmoticonInputView.m */,
+				C2F68EC11C8A101500742258 /* HMEmoticonAttachment.h */,
+				C2F68EC21C8A101500742258 /* HMEmoticonAttachment.m */,
 				C2D237921C887941005CCD39 /* Views */,
 				C2D237961C887C9B005CCD39 /* Model */,
 				C2D237911C887937005CCD39 /* Categories */,
@@ -275,6 +280,7 @@
 				C2D237851C886C66005CCD39 /* HMEmoticonToolbar.m in Sources */,
 				C2D237901C88731A005CCD39 /* UIImage+HMEmoticon.m in Sources */,
 				C2F68EBD1C89F2A500742258 /* HMEmoticonTipView.m in Sources */,
+				C2F68EC31C8A101500742258 /* HMEmoticonAttachment.m in Sources */,
 				C2D237951C887C97005CCD39 /* HMEmoticon.m in Sources */,
 				C2D2379C1C887E10005CCD39 /* HMEmoticonManager.m in Sources */,
 				C2D237A91C88A94C005CCD39 /* NSObject+Runtime.m in Sources */,
