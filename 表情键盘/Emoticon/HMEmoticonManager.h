@@ -15,6 +15,14 @@
 /// 表情管理器单例
 + (nonnull instancetype)sharedManager;
 
+/// 将指定字符串内容转换成带表情图片的属性文本
+///
+/// @param string 字符串
+/// @param font   属性字符串使用的字体
+///
+/// @return 带表情符号的属性文本
+- (NSAttributedString * _Nonnull)emoticonStringWithString:(NSString * _Nonnull)string font:(UIFont * _Nonnull)font;
+
 /// 表情包数组
 @property (nonatomic, nonnull) NSMutableArray <HMEmoticonPackage *>*packages;
 /// 用户标识符，默认是 cn.itcast.DefaultUser

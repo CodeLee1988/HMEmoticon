@@ -19,15 +19,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _textView.text = @"hello";
     
-    [HMEmoticonManager sharedManager].userIdentifier = @"heihei";
+    // 1. 通过表情描述字符串设置属性字符串
+    NSString *text = @"[爱你]啊[笑哈哈]";
+    NSAttributedString *attributeText = [[HMEmoticonManager sharedManager]
+                                         emoticonStringWithString:text
+                                         font:_textView.font];
+    _textView.attributedText = attributeText;
     
+    // 2. 设置用户标示 - 用于保存最近使用表情
+    [HMEmoticonManager sharedManager].userIdentifier = @"刀哥";
+    
+    // 3. 设置表情输入视图
     __weak typeof(self) weakSelf = self;
     _textView.inputView = [[HMEmoticonInputView alloc] initWithSelectedEmoticon:^(HMEmoticon * _Nullable emoticon, BOOL isRemoved) {
         [weakSelf.textView inputEmoticon:emoticon isRemoved:isRemoved];
     }];
     
+    // 4. 监听键盘通知
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(keyboardWillChanged:)

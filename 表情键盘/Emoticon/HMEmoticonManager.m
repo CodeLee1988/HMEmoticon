@@ -8,6 +8,7 @@
 
 #import "HMEmoticonManager.h"
 #import "NSBundle+HMEmoticon.h"
+#import "HMEmoticonAttachment.h"
 
 /// 每页显示的表情数量
 static NSInteger kEmoticonsCountOfPage = 20;
@@ -42,6 +43,54 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
         [self loadPackages];
     }
     return self;
+}
+
+#pragma mark - 字符串转换
+- (NSAttributedString *)emoticonStringWithString:(NSString *)string font:(UIFont *)font {
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
+                                                   initWithString:string
+                                                   attributes:@{NSFontAttributeName: font}];
+    
+    NSString *pattern = @"\\[.*?\\]";
+    NSRegularExpression *regx = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:NULL];
+    
+    NSArray *matches = [regx matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+    for (NSTextCheckingResult *result in matches.reverseObjectEnumerator) {
+        
+        NSRange range = [result rangeAtIndex:0];
+        NSString *str = [string substringWithRange:range];
+        
+        HMEmoticon *emoticon = [self emoticonWithString:str];
+        if (emoticon != nil) {
+            NSAttributedString *emoticonString = [HMEmoticonAttachment emoticonStringWithEmoticon:emoticon font:font];
+            
+            [attributedString replaceCharactersInRange:range withAttributedString:emoticonString];
+        }
+    }
+    
+    return attributedString.copy;
+}
+
+- (HMEmoticon *)emoticonWithString:(NSString *)string {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chs == %@", string];
+    HMEmoticon *emoticon = nil;
+    
+    for (NSInteger i = 1; i < _packages.count; i++) {
+        
+        HMEmoticonPackage *package = _packages[i];
+        
+        NSArray *filter = [package.emoticonsList filteredArrayUsingPredicate:predicate];
+        
+        if (filter.count == 1) {
+            emoticon = filter[0];
+            
+            break;
+        }
+    }
+    
+    return emoticon;
 }
 
 #pragma mark - 数据源方法
@@ -123,7 +172,7 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
     NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
     
     for (NSDictionary *dict in array) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chs CONTAINS %@ OR code CONTAINS %@", dict[@"chs"], dict[@"code"]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chs CONTAINS %@ || code CONTAINS %@", dict[@"chs"], dict[@"code"]];
         
         for (NSInteger i = 1; i < _packages.count; i++) {
             HMEmoticonPackage *package = _packages[i];
