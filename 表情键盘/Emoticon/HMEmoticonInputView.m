@@ -59,6 +59,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
                                 atScrollPosition:UICollectionViewScrollPositionLeft
                                         animated:NO];
         [self updatePageControlWithIndexPath:indexPath];
+        [_toolbar selectSection:indexPath.section];
     }
     return self;
 }
@@ -70,6 +71,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     [_collectionView scrollToItemAtIndexPath:indexPath
                             atScrollPosition:UICollectionViewScrollPositionLeft
                                     animated:NO];
+    [self updatePageControlWithIndexPath:indexPath];
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
