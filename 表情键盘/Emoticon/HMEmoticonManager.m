@@ -11,8 +11,10 @@
 
 /// 每页显示的表情数量
 static NSInteger kEmoticonsCountOfPage = 20;
-/// 默认用户标识符号
-NSString *const HMEmoticonDefaultUserIdentifier = @"cn.itcast.DefaultUser";
+/// 命名空间常量
+NSString *const HMEmoticonNamespace = @"cn.itcast";
+/// 默认用户标识符
+NSString *const HMEmoticonDefaultUserIdentifier = @"DefaultUser";
 /// 表情文件名
 NSString *const HMEmoticonFileName = @".emoticons.json";
 
@@ -111,10 +113,15 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
 /// @return 最近表情数组
 - (NSMutableArray <HMEmoticon *>*)loadRecentEmoticonList {
     
+    NSMutableArray *arrayM = [NSMutableArray array];
     NSData *data = [NSData dataWithContentsOfFile:[self filePathForRecentEmoticon]];
+    
+    if (data == nil) {
+        return arrayM;
+    }
+    
     NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
     
-    NSMutableArray *arrayM = [NSMutableArray array];
     for (NSDictionary *dict in array) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chs CONTAINS %@ OR code CONTAINS %@", dict[@"chs"], dict[@"code"]];
         
@@ -122,7 +129,7 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
             HMEmoticonPackage *package = _packages[i];
             
             NSArray *filter = [package.emoticonsList filteredArrayUsingPredicate:predicate];
-
+            
             if (filter.count == 1) {
                 [arrayM addObject:filter[0]];
                 break;
@@ -159,12 +166,20 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
     [self updateRecentPackage];
 }
 
-#pragma mark - 懒加载属性
+#pragma mark - 用户标识符
+@synthesize userIdentifier = _userIdentifier;
+- (void)setUserIdentifier:(NSString *)userIdentifier {
+    _userIdentifier = userIdentifier.copy;
+    
+    _recentEmoticonList = [self loadRecentEmoticonList];
+    [self updateRecentPackage];
+}
+
 - (NSString *)userIdentifier {
     if (_userIdentifier == nil) {
         _userIdentifier = HMEmoticonDefaultUserIdentifier;
     }
-    return _userIdentifier;
+    return [NSString stringWithFormat:@"%@.%@", HMEmoticonNamespace, _userIdentifier];;
 }
 
 @end
