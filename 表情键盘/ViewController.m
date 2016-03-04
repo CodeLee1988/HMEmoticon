@@ -19,7 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _textView.text = @"hello";
+    
+    NSString *text = @"[爱你]啊[笑哈哈]";
+    NSAttributedString *attributeText = [[HMEmoticonManager sharedManager] emoticonStringWithString:text];
+    _textView.attributedText = attributeText;
     
     [HMEmoticonManager sharedManager].userIdentifier = @"heihei";
     

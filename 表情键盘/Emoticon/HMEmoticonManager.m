@@ -44,6 +44,37 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
     return self;
 }
 
+#pragma mark - 字符串转换
+- (NSAttributedString *)emoticonStringWithString:(NSString *)string {
+    
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] init];
+    
+    NSLog(@"%@", [self emoticonWithString:@"[哈哈]"]);
+    
+    return attributeString.copy;
+}
+
+- (HMEmoticon *)emoticonWithString:(NSString *)string {
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chs == %@", string];
+    HMEmoticon *emoticon = nil;
+    
+    for (NSInteger i = 1; i < _packages.count; i++) {
+        
+        HMEmoticonPackage *package = _packages[i];
+        
+        NSArray *filter = [package.emoticonsList filteredArrayUsingPredicate:predicate];
+        
+        if (filter.count == 1) {
+            emoticon = filter[0];
+            
+            break;
+        }
+    }
+    
+    return emoticon;
+}
+
 #pragma mark - 数据源方法
 - (NSInteger)numberOfPagesInSection:(NSInteger)section {
     HMEmoticonPackage *package = _packages[section];
@@ -123,7 +154,7 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
     NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
     
     for (NSDictionary *dict in array) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chs CONTAINS %@ OR code CONTAINS %@", dict[@"chs"], dict[@"code"]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chs CONTAINS %@ || code CONTAINS %@", dict[@"chs"], dict[@"code"]];
         
         for (NSInteger i = 1; i < _packages.count; i++) {
             HMEmoticonPackage *package = _packages[i];
