@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class HMEmoticon;
 
 @interface HMEmoticonAttachment : NSTextAttachment
+@property (nonatomic, readonly, nullable) NSString *text;
+
+/// 使用表情模型创建表情字符串
+///
+/// @param emoticon 表情模型
+/// @param font     字体
+///
+/// @return 属性文本
++ (NSAttributedString * _Nonnull)emoticonStringWithEmoticon:(HMEmoticon * _Nullable)emoticon font:(UIFont * _Nonnull)font;
 
 @end
