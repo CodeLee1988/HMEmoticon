@@ -11,7 +11,8 @@
 #import "HMEmoticonInputView.h"
 
 @interface ViewController ()
-@property (strong, nonatomic) IBOutlet HMEmoticonTextView *textView;
+@property (weak, nonatomic) IBOutlet HMEmoticonTextView *textView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 @end
 
 @implementation ViewController
@@ -24,6 +25,12 @@
     _textView.inputView = [[HMEmoticonInputView alloc] initWithSelectedEmoticon:^(HMEmoticon * _Nullable emoticon, BOOL isRemoved) {
         [weakSelf.textView inputEmoticon:emoticon isRemoved:isRemoved];
     }];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(keyboardWillChanged:)
+     name:UIKeyboardWillChangeFrameNotification
+     object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -32,8 +39,25 @@
     [_textView becomeFirstResponder];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (IBAction)showText:(id)sender {
     NSLog(@"%@", _textView.emoticonText);
+}
+
+- (void)keyboardWillChanged:(NSNotification *)notification {
+    
+    CGRect rect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSInteger curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    
+    _bottomConstraint.constant = self.view.bounds.size.height - rect.origin.y;
+    [UIView animateWithDuration:0.25 animations:^{
+        [UIView setAnimationCurve:curve];
+        
+        [self.view layoutIfNeeded];
+    }];
 }
 
 @end
