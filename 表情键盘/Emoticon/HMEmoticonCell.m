@@ -10,6 +10,7 @@
 #import "HMEmoticon.h"
 #import "UIImage+HMEmoticon.h"
 #import "HMEmoticonTipView.h"
+#import "HMEmoticonButton.h"
 
 @implementation HMEmoticonCell {
     HMEmoticonTipView *_tipView;
@@ -45,7 +46,7 @@
         UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc]
                                                           initWithTarget:self
                                                           action:@selector(longPressed:)];
-
+        
         longPressGesture.minimumPressDuration = 0.1;
         
         [self addGestureRecognizer:longPressGesture];
@@ -59,14 +60,16 @@
     CGPoint location = [recognizer locationInView:self];
     
     // 查找选中按钮
-    UIButton *button = nil;
-    for (UIButton *btn in self.contentView.subviews) {
-        if (CGRectContainsPoint(btn.frame, location)) {
+    HMEmoticonButton *button = nil;
+    for (HMEmoticonButton *btn in self.contentView.subviews) {
+        if (CGRectContainsPoint(btn.frame, location) && btn != self.contentView.subviews.lastObject) {
             button = btn;
             break;
         }
     }
     if (button == nil) {
+        [_tipView removeFromSuperview];
+        
         return;
     }
     
@@ -117,10 +120,7 @@
         NSInteger row = i / colCount;
         
         CGRect rect = CGRectMake(col * w + leftMargin, row * h, w, h);
-        UIButton *button = [[UIButton alloc] initWithFrame:rect];
-        
-        button.tag = i;
-        button.titleLabel.font = [UIFont systemFontOfSize:32];
+        UIButton *button = [HMEmoticonButton emoticonButtonWithFrame:rect tag:i];
         
         [self.contentView addSubview:button];
         
@@ -130,11 +130,7 @@
     }
     
     // 删除按钮
-    UIButton *button = self.contentView.subviews.lastObject;
-    [button setImage:[UIImage hm_imageNamed:@"compose_emotion_delete"]
-            forState:UIControlStateNormal];
-    [button setImage:[UIImage hm_imageNamed:@"compose_emotion_delete_highlighted"]
-            forState:UIControlStateHighlighted];
+    ((HMEmoticonButton *)self.contentView.subviews.lastObject).deleteButton = YES;
     
     // 提示视图
     _tipView = [[HMEmoticonTipView alloc] init];
