@@ -38,7 +38,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 @end
 
 #pragma mark - 表情输入视图
-@interface HMEmoticonInputView() <UICollectionViewDataSource, UICollectionViewDelegate, HMEmoticonToolbarDelegate>
+@interface HMEmoticonInputView() <UICollectionViewDataSource, UICollectionViewDelegate, HMEmoticonToolbarDelegate, HMEmoticonCellDelegate>
 
 @end
 
@@ -74,6 +74,11 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     [self updatePageControlWithIndexPath:indexPath];
 }
 
+#pragma mark - HMEmoticonCellDelegate
+- (void)emoticonCellDidSelectedEmoticon:(HMEmoticon *)emoticon isRemoved:(BOOL)isRemoved {
+    NSLog(@"%@ %d", emoticon, isRemoved);
+}
+
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return [HMEmoticonManager sharedManager].packages.count;
@@ -90,6 +95,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
                             forIndexPath:indexPath];
     
     cell.emoticons = [[HMEmoticonManager sharedManager] emoticonsWithIndexPath:indexPath];
+    cell.delegate = self;
     
     return cell;
 }

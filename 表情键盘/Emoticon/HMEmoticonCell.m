@@ -94,12 +94,8 @@
     }
 }
 
-- (void)clickEmoticonButton:(UIButton *)button {
-    if (button == self.contentView.subviews.lastObject) {
-        NSLog(@"删除");
-    } else {
-        NSLog(@"表情按钮 %zd", button.tag);
-    }
+- (void)clickEmoticonButton:(HMEmoticonButton *)button {
+    [self.delegate emoticonCellDidSelectedEmoticon:button.emoticon isRemoved:button.isDeleteButton];
 }
 
 #pragma mark - 设置界面
