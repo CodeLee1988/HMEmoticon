@@ -80,11 +80,18 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
         return obj1.times < obj2.times;
     }];
     
-    // 3. 设置第[0]组表情包数组
-    NSInteger length = _recentEmoticonList.count < kEmoticonsCountOfPage ? _recentEmoticonList.count : kEmoticonsCountOfPage;
-    _packages[0].emoticonsList = [_recentEmoticonList subarrayWithRange:NSMakeRange(0, length)].mutableCopy;
+    // 3. 更新最近表情包
+    [self updateRecentPackage];
     
+    // 4. 保存表情包
     [self saveRecentEmoticonList];
+}
+
+/// 更新最近表情包数组
+- (void)updateRecentPackage {
+    NSInteger length = _recentEmoticonList.count < kEmoticonsCountOfPage ? _recentEmoticonList.count : kEmoticonsCountOfPage;
+    
+    _packages[0].emoticonsList = [_recentEmoticonList subarrayWithRange:NSMakeRange(0, length)].mutableCopy;
 }
 
 /// 保存最近表情数组
@@ -103,19 +110,38 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
 ///
 /// @return 最近表情数组
 - (NSMutableArray <HMEmoticon *>*)loadRecentEmoticonList {
-    return nil;
+    
+    NSData *data = [NSData dataWithContentsOfFile:[self filePathForRecentEmoticon]];
+    NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+    
+    NSMutableArray *arrayM = [NSMutableArray array];
+    for (NSDictionary *dict in array) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chs CONTAINS %@ OR code CONTAINS %@", dict[@"chs"], dict[@"code"]];
+        
+        for (NSInteger i = 1; i < _packages.count; i++) {
+            HMEmoticonPackage *package = _packages[i];
+            
+            NSArray *filter = [package.emoticonsList filteredArrayUsingPredicate:predicate];
+
+            if (filter.count == 1) {
+                [arrayM addObject:filter[0]];
+                break;
+            }
+        }
+    }
+    
+    return arrayM;
 }
 
 /// 最近表情文件路径
 - (NSString *)filePathForRecentEmoticon {
     NSString *dir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
+    
     return [[dir stringByAppendingPathComponent:self.userIdentifier] stringByAppendingString:HMEmoticonFileName];
 }
 
 #pragma mark - 加载表情包数据
 - (void)loadPackages {
-    // 0. 加载最近使用表情列表
-    _recentEmoticonList = [NSMutableArray array];
     
     // 1. 读取 emoticons.plist
     NSString *path = [[NSBundle hm_emoticonBundle] pathForResource:@"emoticons.plist" ofType:nil];
@@ -125,6 +151,12 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
     for (NSDictionary *dict in array) {
         [_packages addObject:[HMEmoticonPackage packageWithDict:dict]];
     }
+    
+    // 3. 加载最近使用表情列表
+    _recentEmoticonList = [self loadRecentEmoticonList];
+    
+    // 4. 更新最近表情包
+    [self updateRecentPackage];
 }
 
 #pragma mark - 懒加载属性
