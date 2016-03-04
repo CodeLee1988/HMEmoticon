@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-/// 表情工具栏按钮类型
-typedef enum : NSUInteger {
-    HMEmoticonToolbarRecent,
-    HMEmoticonToolbarNormal,
-    HMEmoticonToolbarEmoji,
-    HMEmoticonToolbarLangXiaohua,
-} HMEmoticonToolbarType;
-
 @protocol HMEmoticonToolbarDelegate;
 
 @interface HMEmoticonToolbar : UIView

@@ -85,7 +85,7 @@ static NSInteger kEmoticonToolbarTagBaseValue = 1000;
     }
 }
 
-- (void)addChildButton:(NSString *)title bgImageName:(NSString *)bgImageName type:(HMEmoticonToolbarType)type {
+- (void)addChildButton:(NSString *)title bgImageName:(NSString *)bgImageName type:(NSInteger)type {
     UIButton *btn = [[UIButton alloc] init];
     
     btn.tag = type + kEmoticonToolbarTagBaseValue;
