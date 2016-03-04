@@ -23,7 +23,9 @@
     [super viewDidLoad];
     _textView.text = @"hello";
     
-    _textView.inputView = [[HMEmoticonInputView alloc] init];
+    _textView.inputView = [[HMEmoticonInputView alloc] initWithSelectedEmoticon:^(HMEmoticon * _Nullable emoticon, BOOL isRemoved) {
+        NSLog(@"%@ %d", emoticon, isRemoved);
+    }];
     
     NSLog(@"%@", [HMEmoticonManager sharedManager].packages);
 }

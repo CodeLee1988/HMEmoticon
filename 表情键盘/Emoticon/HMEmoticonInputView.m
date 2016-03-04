@@ -46,12 +46,19 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     UICollectionView *_collectionView;
     HMEmoticonToolbar *_toolbar;
     UIPageControl *_pageControl;
+    
+    void (^_selectedEmoticonCallBack)(HMEmoticon * _Nullable, BOOL);
 }
 
 #pragma mark - 构造函数
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithSelectedEmoticon:(void (^)(HMEmoticon * _Nullable, BOOL))selectedEmoticon {
+    CGRect frame = [UIScreen mainScreen].bounds;
+    frame.size.height = 258;
+    
     self = [super initWithFrame:frame];
     if (self) {
+        _selectedEmoticonCallBack = selectedEmoticon;
+        
         [self prepareUI];
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:1];
@@ -62,6 +69,11 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
         [_toolbar selectSection:indexPath.section];
     }
     return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    NSAssert(NO, @"请调用 initWithSelectedEmoticon: 实例化表情输入视图");
+    return nil;
 }
 
 #pragma mark - HMEmoticonToolbarDelegate
@@ -76,7 +88,9 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 
 #pragma mark - HMEmoticonCellDelegate
 - (void)emoticonCellDidSelectedEmoticon:(HMEmoticon *)emoticon isRemoved:(BOOL)isRemoved {
-    NSLog(@"%@ %d", emoticon, isRemoved);
+    if (_selectedEmoticonCallBack != nil) {
+        _selectedEmoticonCallBack(emoticon, isRemoved);
+    }
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
@@ -130,20 +144,15 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 
 #pragma mark - 设置界面
 - (void)prepareUI {
-    // 1. 设置尺寸
-    CGRect rect = [UIScreen mainScreen].bounds;
-    rect.size.height = 258;
-    self.frame = rect;
-    CGFloat toolbarHeight = 42;
-    
-    // 2. 基本属性设置
+    // 1. 基本属性设置
     self.backgroundColor = [UIColor colorWithPatternImage:[UIImage hm_imageNamed:@"emoticon_keyboard_background"]];
     
-    // 3. 添加工具栏
+    // 2. 添加工具栏
     _toolbar = [[HMEmoticonToolbar alloc] init];
     [self addSubview:_toolbar];
     
     // 设置工具栏位置
+    CGFloat toolbarHeight = 42;
     CGRect toolbarRect = self.bounds;
     toolbarRect.origin.y = toolbarRect.size.height - toolbarHeight;
     toolbarRect.size.height = toolbarHeight;
@@ -151,7 +160,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     
     _toolbar.delegate = self;
     
-    // 4. 添加 collectionView
+    // 3. 添加 collectionView
     CGRect collectionViewRect = self.bounds;
     collectionViewRect.size.height -= toolbarHeight;
     _collectionView = [[UICollectionView alloc]
@@ -167,7 +176,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     
     [_collectionView registerClass:[HMEmoticonCell class] forCellWithReuseIdentifier:HMEmoticonCellIdentifier];
     
-    // 5. 分页控件
+    // 4. 分页控件
     _pageControl = [[UIPageControl alloc] init];
     [self addSubview:_pageControl];
     
