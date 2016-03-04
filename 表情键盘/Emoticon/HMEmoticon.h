@@ -25,6 +25,8 @@
 @property (nonatomic, copy, nullable) NSString *code;
 /// emoji 字符串
 @property (nonatomic, copy, nullable) NSString *emoji;
+/// 是否 emoji
+@property (nonatomic, readonly) BOOL isEmoji;
 /// 使用次数
 @property (nonatomic, assign) NSInteger times;
 
