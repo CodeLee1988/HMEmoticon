@@ -59,6 +59,24 @@ static NSInteger kEmoticonsCountOfPage = 20;
     return [package.emoticonsList subarrayWithRange:range];
 }
 
+#pragma mark - 最近使用表情
+- (void)addRecentEmoticon:(HMEmoticon *)emoticon {
+    NSLog(@"%s", __FUNCTION__);
+    
+    // 0. 表情计数 ++
+    emoticon.times++;
+    
+    // 1. 判断表情是否已经存在
+    if (![_packages[0].emoticonsList containsObject:emoticon]) {
+        [_packages[0].emoticonsList addObject:emoticon];
+    }
+    
+    // 2. 排序
+    [_packages[0].emoticonsList sortUsingComparator:^NSComparisonResult(HMEmoticon *obj1, HMEmoticon *obj2) {
+        return obj1.times < obj2.times;
+    }];
+}
+
 #pragma mark - 加载表情包数据
 - (void)loadPackages {
     // 1. 读取 emoticons.plist

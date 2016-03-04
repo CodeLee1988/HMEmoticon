@@ -33,4 +33,10 @@
 /// @return 表情模型数组
 - (nonnull NSArray *)emoticonsWithIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
+#pragma mark - 最近使用表情
+/// 添加最近使用表情
+///
+/// @param emoticon 表情模型
+- (void)addRecentEmoticon:(HMEmoticon * _Nonnull)emoticon;
+
 @end

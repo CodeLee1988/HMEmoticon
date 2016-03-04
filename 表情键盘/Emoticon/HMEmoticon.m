@@ -42,7 +42,7 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {}
 
 - (NSString *)description {
-    NSArray *keys = @[@"type", @"chs", @"png", @"code"];
+    NSArray *keys = @[@"type", @"chs", @"png", @"code", @"times"];
     
     return [self dictionaryWithValuesForKeys:keys].description;
 }
