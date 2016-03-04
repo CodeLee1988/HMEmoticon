@@ -8,7 +8,7 @@
 
 #import "HMEmoticonTextView.h"
 #import "HMEmoticonManager.h"
-#import "UIImage+HMEmoticon.h"
+#import "HMEmoticonAttachment.h"
 
 @implementation HMEmoticonTextView {
     UILabel *_placeHolderLabel;
@@ -65,6 +65,21 @@
 }
 
 #pragma mark - 公共函数
+- (NSString *)emoticonText {
+    
+    NSAttributedString *attributeText = self.attributedText;
+    
+    [attributeText
+     enumerateAttributesInRange:
+     NSMakeRange(0, attributeText.length)
+     options:0
+     usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+         NSLog(@"%@", attrs);
+     }];
+    
+    return attributeText.string;
+}
+
 - (void)inputEmoticon:(HMEmoticon *)emoticon isRemoved:(BOOL)isRemoved {
     
     if (isRemoved) {
@@ -81,14 +96,7 @@
     
     NSMutableAttributedString *attributeText = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
     
-    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
-    attachment.image = [UIImage hm_imageNamed:emoticon.imagePath];
-    CGFloat lineHeight = self.font.lineHeight;
-    attachment.bounds = CGRectMake(0, -4, lineHeight, lineHeight);
-    
-    NSMutableAttributedString *emoticonStr = [[NSMutableAttributedString alloc] initWithAttributedString:
-                                              [NSAttributedString attributedStringWithAttachment:attachment]];
-    [emoticonStr addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0, 1)];
+    NSAttributedString *emoticonStr = [HMEmoticonAttachment emoticonStringWithEmoticon:emoticon font:self.font];
     
     NSRange range = self.selectedRange;
     [attributeText replaceCharactersInRange:range withAttributedString:emoticonStr];

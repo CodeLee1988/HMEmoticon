@@ -16,9 +16,13 @@ IB_DESIGNABLE
 /// 最大输入文本长度
 @property (nonatomic) IBInspectable NSInteger maxInputLength;
 
+/// 完整字符串，将表情符号转换为 [表情] 字符串
+@property (nonatomic, readonly, nullable) NSString *emoticonText;
+
 /// 在当前光标位置插入表情图片
 ///
 /// @param emoticon  表情模型
 /// @param isRemoved 是否删除
 - (void)inputEmoticon:(HMEmoticon * _Nullable)emoticon isRemoved:(BOOL)isRemoved;
+
 @end

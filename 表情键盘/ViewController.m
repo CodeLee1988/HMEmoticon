@@ -32,4 +32,8 @@
     [_textView becomeFirstResponder];
 }
 
+- (IBAction)showText:(id)sender {
+    NSLog(@"%@", _textView.emoticonText);
+}
+
 @end
