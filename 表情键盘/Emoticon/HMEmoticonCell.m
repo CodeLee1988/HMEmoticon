@@ -27,12 +27,9 @@
     
     NSInteger index = 0;
     for (HMEmoticon *e in _emoticons) {
-        UIButton *btn = self.contentView.subviews[index++];
+        HMEmoticonButton *btn = self.contentView.subviews[index++];
         
-        [btn setImage:[UIImage hm_imageNamed:e.imagePath] forState:UIControlStateNormal];
-        [btn setTitle:e.emoji forState:UIControlStateNormal];
-        
-        btn.hidden = NO;
+        btn.emoticon = e;
     }
 }
 

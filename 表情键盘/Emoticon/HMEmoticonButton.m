@@ -8,6 +8,7 @@
 
 #import "HMEmoticonButton.h"
 #import "UIImage+HMEmoticon.h"
+#import "HMEmoticon.h"
 
 @implementation HMEmoticonButton
 
@@ -19,6 +20,15 @@
           forState:UIControlStateNormal];
     [self setImage:[UIImage hm_imageNamed:@"compose_emotion_delete_highlighted"]
           forState:UIControlStateHighlighted];
+}
+
+- (void)setEmoticon:(HMEmoticon *)emoticon {
+    _emoticon = emoticon;
+    
+    self.hidden = (emoticon == nil);
+    
+    [self setImage:[UIImage hm_imageNamed:emoticon.imagePath] forState:UIControlStateNormal];
+    [self setTitle:emoticon.emoji forState:UIControlStateNormal];
 }
 
 #pragma mark - 构造函数
