@@ -26,6 +26,8 @@
 		C2D237A31C888CED005CCD39 /* HMEmoticonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237A21C888CED005CCD39 /* HMEmoticonCell.m */; };
 		C2D237A61C889976005CCD39 /* NSString+HMEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237A51C889976005CCD39 /* NSString+HMEmoji.m */; };
 		C2D237A91C88A94C005CCD39 /* NSObject+Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D237A81C88A94C005CCD39 /* NSObject+Runtime.m */; };
+		C2F68EBD1C89F2A500742258 /* HMEmoticonTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F68EBC1C89F2A500742258 /* HMEmoticonTipView.m */; };
+		C2F68EC01C89F87600742258 /* HMEmoticonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F68EBF1C89F87600742258 /* HMEmoticonButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,10 @@
 		C2D237A51C889976005CCD39 /* NSString+HMEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HMEmoji.m"; sourceTree = "<group>"; };
 		C2D237A71C88A94C005CCD39 /* NSObject+Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Runtime.h"; sourceTree = "<group>"; };
 		C2D237A81C88A94C005CCD39 /* NSObject+Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Runtime.m"; sourceTree = "<group>"; };
+		C2F68EBB1C89F2A500742258 /* HMEmoticonTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMEmoticonTipView.h; sourceTree = "<group>"; };
+		C2F68EBC1C89F2A500742258 /* HMEmoticonTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonTipView.m; sourceTree = "<group>"; };
+		C2F68EBE1C89F87600742258 /* HMEmoticonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMEmoticonButton.h; sourceTree = "<group>"; };
+		C2F68EBF1C89F87600742258 /* HMEmoticonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMEmoticonButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +160,10 @@
 				C2D237841C886C66005CCD39 /* HMEmoticonToolbar.m */,
 				C2D237A11C888CED005CCD39 /* HMEmoticonCell.h */,
 				C2D237A21C888CED005CCD39 /* HMEmoticonCell.m */,
+				C2F68EBB1C89F2A500742258 /* HMEmoticonTipView.h */,
+				C2F68EBC1C89F2A500742258 /* HMEmoticonTipView.m */,
+				C2F68EBE1C89F87600742258 /* HMEmoticonButton.h */,
+				C2F68EBF1C89F87600742258 /* HMEmoticonButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -256,6 +266,7 @@
 			files = (
 				C2D237A31C888CED005CCD39 /* HMEmoticonCell.m in Sources */,
 				C2D237661C885DDF005CCD39 /* ViewController.m in Sources */,
+				C2F68EC01C89F87600742258 /* HMEmoticonButton.m in Sources */,
 				C2D2378D1C886E6C005CCD39 /* NSBundle+HMEmoticon.m in Sources */,
 				C2D237A61C889976005CCD39 /* NSString+HMEmoji.m in Sources */,
 				C2D237631C885DDF005CCD39 /* AppDelegate.m in Sources */,
@@ -263,6 +274,7 @@
 				C2D237601C885DDE005CCD39 /* main.m in Sources */,
 				C2D237851C886C66005CCD39 /* HMEmoticonToolbar.m in Sources */,
 				C2D237901C88731A005CCD39 /* UIImage+HMEmoticon.m in Sources */,
+				C2F68EBD1C89F2A500742258 /* HMEmoticonTipView.m in Sources */,
 				C2D237951C887C97005CCD39 /* HMEmoticon.m in Sources */,
 				C2D2379C1C887E10005CCD39 /* HMEmoticonManager.m in Sources */,
 				C2D237A91C88A94C005CCD39 /* NSObject+Runtime.m in Sources */,
