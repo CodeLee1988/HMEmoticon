@@ -68,16 +68,23 @@
 - (NSString *)emoticonText {
     
     NSAttributedString *attributeText = self.attributedText;
+    NSMutableString *stringM = [NSMutableString string];
     
     [attributeText
      enumerateAttributesInRange:
      NSMakeRange(0, attributeText.length)
      options:0
      usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
-         NSLog(@"%@", attrs);
+         
+         HMEmoticonAttachment *attachment = attrs[@"NSAttachment"];
+         if (attachment != nil) {
+             [stringM appendString:attachment.text];
+         } else {
+             [stringM appendString:[attributeText.string substringWithRange:range]];
+         }
      }];
     
-    return attributeText.string;
+    return stringM.copy;
 }
 
 - (void)inputEmoticon:(HMEmoticon *)emoticon isRemoved:(BOOL)isRemoved {
