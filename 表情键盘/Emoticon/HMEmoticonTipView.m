@@ -8,24 +8,45 @@
 
 #import "HMEmoticonTipView.h"
 #import "UIImage+HMEmoticon.h"
+#import "HMEmoticonButton.h"
 
 @implementation HMEmoticonTipView {
-    UIButton *_tipButton;
+    HMEmoticonButton *_tipButton;
 }
 
+#pragma mark - 属性
+- (void)setEmoticon:(HMEmoticon *)emoticon {
+    
+    if (_tipButton.emoticon == emoticon) {
+        return;
+    }
+    
+    _tipButton.emoticon = emoticon;
+    
+    CGPoint center = _tipButton.center;
+    _tipButton.center = CGPointMake(center.x, center.y + 16);
+    [UIView animateWithDuration:0.25
+                          delay:0
+         usingSpringWithDamping:0.4
+          initialSpringVelocity:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         _tipButton.center = center;
+                     }
+                     completion:nil];
+}
+
+#pragma mark - 构造函数
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithImage:[UIImage hm_imageNamed:@"emoticon_keyboard_magnifier"]];
     if (self) {
-
-        _tipButton = [[UIButton alloc] init];
-        _tipButton.backgroundColor = [UIColor redColor];
-        [self addSubview:_tipButton];
-        
         // 计算按钮大小
         CGFloat width = 32;
         CGFloat x = (self.bounds.size.width - width) * 0.5;
+        CGRect rect = CGRectMake(x, 8, width, width);
         
-        _tipButton.frame = CGRectMake(x, 8, width, width);
+        _tipButton = [HMEmoticonButton emoticonButtonWithFrame:rect tag:0];
+        [self addSubview:_tipButton];
     }
     return self;
 }

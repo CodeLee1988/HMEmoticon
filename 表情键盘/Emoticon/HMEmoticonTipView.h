@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class HMEmoticon;
 
 /// 表情提示视图
 @interface HMEmoticonTipView : UIImageView
-
-
+/// 表情模型
+@property (nonatomic, nullable) HMEmoticon *emoticon;
 @end

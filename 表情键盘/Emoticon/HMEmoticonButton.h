@@ -15,7 +15,7 @@
 + (nonnull instancetype)emoticonButtonWithFrame:(CGRect)frame tag:(NSInteger)tag;
 /// 是否删除按钮
 @property (nonatomic, getter=isDeleteButton) BOOL deleteButton;
-/// 表情符号
+/// 表情模型
 @property (nonatomic, nullable) HMEmoticon *emoticon;
 
 @end

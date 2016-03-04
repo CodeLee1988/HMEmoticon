@@ -80,6 +80,7 @@
             buttonCenter.y -= (_tipView.bounds.size.height - button.imageView.bounds.size.height) * 0.5;
             
             _tipView.center = buttonCenter;
+            _tipView.emoticon = button.emoticon;
         }
             break;
         case UIGestureRecognizerStateEnded:
