@@ -37,11 +37,55 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self prepareUI];
+        
+        // 添加手势监听
+        UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc]
+                                                          initWithTarget:self
+                                                          action:@selector(longPressed:)];
+
+        longPressGesture.minimumPressDuration = 0.1;
+        
+        [self addGestureRecognizer:longPressGesture];
     }
     return self;
 }
 
 #pragma mark - 监听方法
+- (void)longPressed:(UILongPressGestureRecognizer *)recognizer {
+    
+    CGPoint location = [recognizer locationInView:self];
+    
+    // 查找选中按钮
+    UIButton *button = nil;
+    for (UIButton *btn in self.contentView.subviews) {
+        if (CGRectContainsPoint(btn.frame, location)) {
+            button = btn;
+            break;
+        }
+    }
+    if (button == nil) {
+        return;
+    }
+    NSLog(@"%zd", button.tag);
+    
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            
+            break;
+        case UIGestureRecognizerStateChanged:
+            
+            break;
+        case UIGestureRecognizerStateEnded:
+            break;
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (void)clickEmoticonButton:(UIButton *)button {
     if (button == self.contentView.subviews.lastObject) {
         NSLog(@"删除");
