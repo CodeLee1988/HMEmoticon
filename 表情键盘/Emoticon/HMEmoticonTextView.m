@@ -13,6 +13,7 @@
 @implementation HMEmoticonTextView {
     UILabel *_placeHolderLabel;
     UILabel *_lengthTipLabel;
+    NSMutableArray <NSLayoutConstraint *> *_lengthTipLabelCons;
 }
 
 #pragma mark - 设置属性
@@ -121,6 +122,38 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:self];
 }
 
+- (void)updateTipLabelBottomConstraints:(UIView *)view {
+    
+    /// 判断 view 是否是当前的子视图
+    if (![self.subviews containsObject:view]) {
+        NSLog(@"当前仅支持相对 textView 子视图的控件参照");
+        return;
+    }
+    
+    [self removeConstraints:_lengthTipLabelCons];
+    
+    [_lengthTipLabelCons removeAllObjects];
+    CGFloat margin = 5;
+    [_lengthTipLabelCons addObject:[NSLayoutConstraint
+                                    constraintWithItem:_lengthTipLabel
+                                    attribute:NSLayoutAttributeTrailing
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self
+                                    attribute:NSLayoutAttributeTrailing
+                                    multiplier:1.0
+                                    constant:-margin]];
+    [_lengthTipLabelCons addObject:[NSLayoutConstraint
+                                    constraintWithItem:_lengthTipLabel
+                                    attribute:NSLayoutAttributeBottom
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:view
+                                    attribute:NSLayoutAttributeTop
+                                    multiplier:1.0
+                                    constant:-margin]];
+    
+    [self addConstraints:_lengthTipLabelCons];
+}
+
 #pragma mark - 监听方法
 - (void)textChanged {
     _placeHolderLabel.hidden = self.hasText;
@@ -148,6 +181,7 @@
     // 3. 尺寸视图
     UIView *sizeView = [[UIView alloc] init];
     sizeView.backgroundColor = [UIColor clearColor];
+    sizeView.userInteractionEnabled = NO;
     
     [self insertSubview:sizeView atIndex:0];
     
@@ -225,22 +259,25 @@
     [self addSubview:_lengthTipLabel];
     
     _lengthTipLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addConstraint:[NSLayoutConstraint
-                         constraintWithItem:_lengthTipLabel
-                         attribute:NSLayoutAttributeTrailing
-                         relatedBy:NSLayoutRelationEqual
-                         toItem:self
-                         attribute:NSLayoutAttributeTrailing
-                         multiplier:1.0
-                         constant:-leftOffset]];
-    [self addConstraint:[NSLayoutConstraint
-                         constraintWithItem:_lengthTipLabel
-                         attribute:NSLayoutAttributeBottom
-                         relatedBy:NSLayoutRelationEqual
-                         toItem:self
-                         attribute:NSLayoutAttributeBottom
-                         multiplier:1.0
-                         constant:-leftOffset]];
+    _lengthTipLabelCons = [NSMutableArray array];
+    [_lengthTipLabelCons addObject:[NSLayoutConstraint
+                                   constraintWithItem:_lengthTipLabel
+                                   attribute:NSLayoutAttributeTrailing
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self
+                                   attribute:NSLayoutAttributeTrailing
+                                   multiplier:1.0
+                                    constant:-leftOffset]];
+    [_lengthTipLabelCons addObject:[NSLayoutConstraint
+                                   constraintWithItem:_lengthTipLabel
+                                   attribute:NSLayoutAttributeBottom
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self
+                                   attribute:NSLayoutAttributeBottom
+                                   multiplier:1.0
+                                    constant:-leftOffset]];
+
+    [self addConstraints:_lengthTipLabelCons];
 }
 
 @end
