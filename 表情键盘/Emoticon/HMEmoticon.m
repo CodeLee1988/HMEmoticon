@@ -12,7 +12,7 @@
 
 @implementation HMEmoticon
 
-#pragma mark - 计算型属性 
+#pragma mark - 计算型属性
 - (NSString *)imagePath {
     
     if (_type == 1) {
@@ -24,6 +24,10 @@
 
 - (void)setCode:(NSString *)code {
     _emoji = [NSString emojiWithStringCode:code];
+}
+
+- (BOOL)isEmoji {
+    return _emoji != nil;
 }
 
 #pragma mark - 构造函数

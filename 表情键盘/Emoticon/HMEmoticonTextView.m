@@ -7,6 +7,8 @@
 //
 
 #import "HMEmoticonTextView.h"
+#import "HMEmoticonManager.h"
+#import "HMEmoticonAttachment.h"
 
 @implementation HMEmoticonTextView {
     UILabel *_placeHolderLabel;
@@ -62,7 +64,55 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - 监听方
+#pragma mark - 公共函数
+- (NSString *)emoticonText {
+    
+    NSAttributedString *attributeText = self.attributedText;
+    NSMutableString *stringM = [NSMutableString string];
+    
+    [attributeText
+     enumerateAttributesInRange:
+     NSMakeRange(0, attributeText.length)
+     options:0
+     usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+         
+         HMEmoticonAttachment *attachment = attrs[@"NSAttachment"];
+         if (attachment != nil) {
+             [stringM appendString:attachment.text];
+         } else {
+             [stringM appendString:[attributeText.string substringWithRange:range]];
+         }
+     }];
+    
+    return stringM.copy;
+}
+
+- (void)inputEmoticon:(HMEmoticon *)emoticon isRemoved:(BOOL)isRemoved {
+    
+    if (isRemoved) {
+        [self deleteBackward];
+        
+        return;
+    }
+    
+    if (emoticon.isEmoji) {
+        [self replaceRange:[self selectedTextRange] withText:emoticon.emoji];
+        
+        return;
+    }
+    
+    NSMutableAttributedString *attributeText = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+    
+    NSAttributedString *emoticonStr = [HMEmoticonAttachment emoticonStringWithEmoticon:emoticon font:self.font];
+    
+    NSRange range = self.selectedRange;
+    [attributeText replaceCharactersInRange:range withAttributedString:emoticonStr];
+    
+    self.attributedText = attributeText;
+    self.selectedRange = NSMakeRange(range.location + 1, 0);
+}
+
+#pragma mark - 监听方法
 - (void)textChanged {
     _placeHolderLabel.hidden = self.hasText;
     
