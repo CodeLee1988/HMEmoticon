@@ -7,6 +7,7 @@
 //
 
 #import "NSBundle+HMEmoticon.h"
+#import "HMEmoticonInputView.h"
 
 NSString *const HMEmoticonBundleName = @"HMEmoticon.bundle";
 
@@ -14,7 +15,7 @@ NSString *const HMEmoticonBundleName = @"HMEmoticon.bundle";
 
 + (instancetype)hm_emoticonBundle {
     
-    NSBundle *bundle = [NSBundle mainBundle];
+    NSBundle *bundle = [NSBundle bundleForClass:[HMEmoticonInputView class]];
     NSString *bundlePath = [bundle pathForResource:HMEmoticonBundleName ofType:nil];
     
     return [NSBundle bundleWithPath:bundlePath];

@@ -91,6 +91,11 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     if (_selectedEmoticonCallBack != nil) {
         _selectedEmoticonCallBack(emoticon, isRemoved);
     }
+    
+    /// 添加最近使用表情
+    if (emoticon != nil) {
+        [[HMEmoticonManager sharedManager] addRecentEmoticon:emoticon];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource, UICollectionViewDelegate
