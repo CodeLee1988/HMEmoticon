@@ -59,7 +59,7 @@
     // 查找选中按钮
     HMEmoticonButton *button = nil;
     for (HMEmoticonButton *btn in self.contentView.subviews) {
-        if (CGRectContainsPoint(btn.frame, location) && btn != self.contentView.subviews.lastObject) {
+        if (CGRectContainsPoint(btn.frame, location) && !btn.hidden) {
             button = btn;
             break;
         }
@@ -72,7 +72,9 @@
     
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
-            [self.window addSubview:_tipView];
+            if (button != self.contentView.subviews.lastObject) {
+                [self.window addSubview:_tipView];
+            }
         case UIGestureRecognizerStateChanged: {
             CGPoint buttonCenter = [self.contentView convertPoint:button.center toView:self.window];
             

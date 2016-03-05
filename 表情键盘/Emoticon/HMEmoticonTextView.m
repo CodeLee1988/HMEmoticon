@@ -261,22 +261,22 @@
     _lengthTipLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _lengthTipLabelCons = [NSMutableArray array];
     [_lengthTipLabelCons addObject:[NSLayoutConstraint
-                                   constraintWithItem:_lengthTipLabel
-                                   attribute:NSLayoutAttributeTrailing
-                                   relatedBy:NSLayoutRelationEqual
-                                   toItem:self
-                                   attribute:NSLayoutAttributeTrailing
-                                   multiplier:1.0
+                                    constraintWithItem:_lengthTipLabel
+                                    attribute:NSLayoutAttributeTrailing
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self
+                                    attribute:NSLayoutAttributeTrailing
+                                    multiplier:1.0
                                     constant:-leftOffset]];
     [_lengthTipLabelCons addObject:[NSLayoutConstraint
-                                   constraintWithItem:_lengthTipLabel
-                                   attribute:NSLayoutAttributeBottom
-                                   relatedBy:NSLayoutRelationEqual
-                                   toItem:self
-                                   attribute:NSLayoutAttributeBottom
-                                   multiplier:1.0
+                                    constraintWithItem:_lengthTipLabel
+                                    attribute:NSLayoutAttributeBottom
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self
+                                    attribute:NSLayoutAttributeBottom
+                                    multiplier:1.0
                                     constant:-leftOffset]];
-
+    
     [self addConstraints:_lengthTipLabelCons];
 }
 

@@ -12,8 +12,8 @@
 
 @implementation NSString (HMEmoji)
 
-+ (NSString *)emojiWithIntCode:(unsigned long)intCode {
-    unsigned long symbol = EmojiCodeToSymbol(intCode);
++ (NSString *)emojiWithIntCode:(unsigned int)intCode {
+    unsigned int symbol = EmojiCodeToSymbol(intCode);
     NSString *string = [[NSString alloc] initWithBytes:&symbol length:sizeof(symbol) encoding:NSUTF8StringEncoding];
     
     if (string == nil) {
