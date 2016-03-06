@@ -23,7 +23,7 @@
 }
 
 - (void)setCode:(NSString *)code {
-    _emoji = [NSString emojiWithStringCode:code];
+    _emoji = code.hm_emoji;
 }
 
 - (BOOL)isEmoji {
