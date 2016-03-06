@@ -24,7 +24,12 @@
     [HMEmoticonManager sharedManager].userIdentifier = @"刀哥";
     
     // 2. 设置表情输入视图
+    // 1> 使用表情视图
     _textView.useEmoticonInputView = YES;
+    // 2> 设置占位文本
+    _textView.placeholder = @"分享新鲜事...";
+    // 3> 设置最大文本长度
+    _textView.maxInputLength = 140;
     
     // 3. 监听键盘通知
     [[NSNotificationCenter defaultCenter]

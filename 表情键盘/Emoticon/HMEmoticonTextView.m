@@ -185,6 +185,13 @@
 - (void)textChanged {
     _placeHolderLabel.hidden = self.hasText;
     
+    if (_maxInputLength <= 0) {
+        _lengthTipLabel.hidden = YES;
+        
+        return;
+    }
+    _lengthTipLabel.hidden = NO;
+    
     NSInteger len = _maxInputLength - self.emoticonText.length;
     _lengthTipLabel.text = [NSString stringWithFormat:@"%zd", len];
     _lengthTipLabel.textColor = (len >= 0) ? [UIColor lightGrayColor] : [UIColor redColor];
