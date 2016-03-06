@@ -11,6 +11,10 @@
 
 IB_DESIGNABLE
 @interface HMEmoticonTextView : UITextView
+
+/// 是否使用表情输入视图
+@property (nonatomic, getter=isUseEmoticonInputView) IBInspectable BOOL useEmoticonInputView;
+
 /// 占位文本
 @property (nonatomic, copy, nullable) IBInspectable NSString *placeholder;
 /// 最大输入文本长度

@@ -9,14 +9,35 @@
 #import "HMEmoticonTextView.h"
 #import "HMEmoticonManager.h"
 #import "HMEmoticonAttachment.h"
+#import "HMEmoticonInputView.h"
 
 @implementation HMEmoticonTextView {
     UILabel *_placeHolderLabel;
     UILabel *_lengthTipLabel;
     NSMutableArray <NSLayoutConstraint *> *_lengthTipLabelCons;
+    
+    /// 表情输入视图
+    HMEmoticonInputView *_emoticonInputView;
 }
 
 #pragma mark - 设置属性
+- (BOOL)isUseEmoticonInputView {
+    return self.inputView != nil;
+}
+
+- (void)setUseEmoticonInputView:(BOOL)useEmoticonInputView {
+    
+    if (self.isUseEmoticonInputView == useEmoticonInputView) {
+        return;
+    }
+    
+    [self resignFirstResponder];
+    
+    self.inputView = (self.inputView == nil) ? _emoticonInputView : nil;
+    
+    [self becomeFirstResponder];
+}
+
 - (void)setPlaceholder:(NSString *)placeholder {
     _placeholder = placeholder.copy;
     _placeHolderLabel.text = _placeholder;
@@ -65,6 +86,12 @@
     }
     
     return self;
+}
+
+- (void)willMoveToWindow:(UIWindow *)newWindow {
+    [super willMoveToWindow:newWindow];
+    
+    [self layoutIfNeeded];
 }
 
 - (void)dealloc {
@@ -124,7 +151,7 @@
 
 - (void)updateTipLabelBottomConstraints:(UIView *)view {
     
-    /// 判断 view 是否是当前的子视图
+    // 判断 view 是否是当前的子视图
     if (![self.subviews containsObject:view]) {
         NSLog(@"当前仅支持相对 textView 子视图的控件参照");
         return;
@@ -164,7 +191,17 @@
 }
 
 #pragma mark - 设置界面
+- (void)prepareInputView {
+    __weak typeof(self) weakSelf = self;
+    _emoticonInputView = [[HMEmoticonInputView alloc] initWithSelectedEmoticon:^(HMEmoticon * _Nullable emoticon, BOOL isRemoved) {
+        [weakSelf insertEmoticon:emoticon isRemoved:isRemoved];
+    }];
+}
+
 - (void)prepareUI {
+    // 0. 准备输入视图
+    [self prepareInputView];
+    
     // 1. 注册文本变化通知
     [[NSNotificationCenter defaultCenter]
      addObserver:self
