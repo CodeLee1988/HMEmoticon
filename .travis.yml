@@ -1,0 +1,3 @@
+language: objective-c
+xcode-project: 表情键盘.xcodeproj
+xcode_scheme:表情键盘 
