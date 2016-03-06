@@ -61,6 +61,12 @@
     [self textChanged];
 }
 
+- (UIColor *)textColor {
+    UIColor *color = [super textColor];
+
+    return (color == nil) ? [UIColor darkGrayColor] : color;
+}
+
 - (void)setAttributedText:(NSAttributedString *)attributedText {
     [super setAttributedText:attributedText];
     
