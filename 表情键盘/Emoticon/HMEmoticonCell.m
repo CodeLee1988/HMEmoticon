@@ -78,8 +78,10 @@
         case UIGestureRecognizerStateChanged: {
             CGPoint buttonCenter = [self.contentView convertPoint:button.center toView:self.window];
             
-            // 将中心点 y 值向上移动 (tipView高度 - 按钮图像视图高度) * 0.5; 使得提示视图刚好和按钮图像底部对齐
-            buttonCenter.y -= (_tipView.bounds.size.height - button.imageView.bounds.size.height) * 0.5;
+            //修改描点后 直接将TipView的中心点设置为和点击到的表情按钮中心店相同就可以实现 视图和按钮图像底部的对齐
+            /*// 将中心点 y 值向上移动 (tipView高度 - 按钮图像视图高度) * 0.5; 使得提示视图刚好和按钮图像底部对齐
+            buttonCenter.y -= (_tipView.bounds.size.height - button.imageView.bounds.size.height) * 0.5;*/
+            
             
             _tipView.center = buttonCenter;
             _tipView.emoticon = button.emoticon;

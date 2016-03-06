@@ -47,6 +47,8 @@
         
         _tipButton = [HMEmoticonButton emoticonButtonWithFrame:rect tag:0];
         [self addSubview:_tipButton];
+        // 修改描点以更改TipView中心点 实现提示遮挡时的偏移
+        self.layer.anchorPoint = CGPointMake(0.5, 0.8);
     }
     return self;
 }
