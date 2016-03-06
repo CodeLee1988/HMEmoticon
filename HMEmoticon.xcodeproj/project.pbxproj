@@ -32,7 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C2D2375B1C885DDE005CCD39 /* 表情键盘.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "表情键盘.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2D2375B1C885DDE005CCD39 /* HMEmoticon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMEmoticon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2D2375F1C885DDE005CCD39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C2D237611C885DDE005CCD39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C2D237621C885DDF005CCD39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		C2D2375C1C885DDE005CCD39 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C2D2375B1C885DDE005CCD39 /* 表情键盘.app */,
+				C2D2375B1C885DDE005CCD39 /* HMEmoticon.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -208,9 +208,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C2D2375A1C885DDE005CCD39 /* 表情键盘 */ = {
+		C2D2375A1C885DDE005CCD39 /* HMEmoticon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2D237721C885DDF005CCD39 /* Build configuration list for PBXNativeTarget "表情键盘" */;
+			buildConfigurationList = C2D237721C885DDF005CCD39 /* Build configuration list for PBXNativeTarget "HMEmoticon" */;
 			buildPhases = (
 				C2D237571C885DDE005CCD39 /* Sources */,
 				C2D237581C885DDE005CCD39 /* Frameworks */,
@@ -220,9 +220,9 @@
 			);
 			dependencies = (
 			);
-			name = "表情键盘";
+			name = HMEmoticon;
 			productName = "表情键盘";
-			productReference = C2D2375B1C885DDE005CCD39 /* 表情键盘.app */;
+			productReference = C2D2375B1C885DDE005CCD39 /* HMEmoticon.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -240,7 +240,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C2D237561C885DDE005CCD39 /* Build configuration list for PBXProject "表情键盘" */;
+			buildConfigurationList = C2D237561C885DDE005CCD39 /* Build configuration list for PBXProject "HMEmoticon" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -253,7 +253,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C2D2375A1C885DDE005CCD39 /* 表情键盘 */,
+				C2D2375A1C885DDE005CCD39 /* HMEmoticon */,
 			);
 		};
 /* End PBXProject section */
@@ -407,7 +407,7 @@
 				INFOPLIST_FILE = "表情键盘/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cn.itcast.----";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HMEmoticon;
 			};
 			name = Debug;
 		};
@@ -418,14 +418,14 @@
 				INFOPLIST_FILE = "表情键盘/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cn.itcast.----";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HMEmoticon;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C2D237561C885DDE005CCD39 /* Build configuration list for PBXProject "表情键盘" */ = {
+		C2D237561C885DDE005CCD39 /* Build configuration list for PBXProject "HMEmoticon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2D237701C885DDF005CCD39 /* Debug */,
@@ -434,7 +434,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C2D237721C885DDF005CCD39 /* Build configuration list for PBXNativeTarget "表情键盘" */ = {
+		C2D237721C885DDF005CCD39 /* Build configuration list for PBXNativeTarget "HMEmoticon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2D237731C885DDF005CCD39 /* Debug */,
