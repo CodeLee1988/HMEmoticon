@@ -20,28 +20,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 1. 通过表情描述字符串设置属性字符串
-    NSString *text = @"[爱你]啊[笑哈哈]";
-    NSAttributedString *attributeText = [[HMEmoticonManager sharedManager]
-                                         emoticonStringWithString:text
-                                         font:_textView.font];
-    _textView.attributedText = attributeText;
-    
-    // 2. 设置用户标示 - 用于保存最近使用表情
+    // 1. 设置用户标示 - 用于保存最近使用表情
     [HMEmoticonManager sharedManager].userIdentifier = @"刀哥";
     
-    // 3. 设置表情输入视图
-    __weak typeof(self) weakSelf = self;
-    _textView.inputView = [[HMEmoticonInputView alloc] initWithSelectedEmoticon:^(HMEmoticon * _Nullable emoticon, BOOL isRemoved) {
-        [weakSelf.textView insertEmoticon:emoticon isRemoved:isRemoved];
-    }];
-    
-    // 4. 监听键盘通知
+    // 2. 监听键盘通知
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(keyboardWillChanged:)
      name:UIKeyboardWillChangeFrameNotification
      object:nil];
+    
+    // 3. 通过表情描述字符串设置属性字符串
+    NSString *text = @"[爱你]啊[笑哈哈]";
+    NSAttributedString *attributeText = [[HMEmoticonManager sharedManager]
+                                         emoticonStringWithString:text
+                                         font:_textView.font];
+    _textView.attributedText = attributeText;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -54,6 +48,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - 监听方法
+/// 切换输入视图
+- (IBAction)switchInputView:(id)sender {
+    _textView.useEmoticonInputView = !_textView.isUseEmoticonInputView;
+}
+
+/// 显示转换后的表情符号文本，可以用户网络传输
 - (IBAction)showText:(id)sender {
     NSLog(@"%@", _textView.emoticonText);
 }

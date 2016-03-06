@@ -12,7 +12,7 @@
 
 @implementation NSString (HMEmoji)
 
-+ (NSString *)emojiWithIntCode:(unsigned int)intCode {
++ (NSString *)hm_emojiWithIntCode:(unsigned int)intCode {
     unsigned int symbol = EmojiCodeToSymbol(intCode);
     NSString *string = [[NSString alloc] initWithBytes:&symbol length:sizeof(symbol) encoding:NSUTF8StringEncoding];
     
@@ -22,18 +22,18 @@
     return string;
 }
 
-+ (NSString *)emojiWithStringCode:(NSString *)stringCode {
++ (NSString *)hm_emojiWithStringCode:(NSString *)stringCode {
     
     NSScanner *scanner = [[NSScanner alloc] initWithString:stringCode];
     
     unsigned int intCode = 0;
     [scanner scanHexInt:&intCode];
     
-    return [self emojiWithIntCode:intCode];
+    return [self hm_emojiWithIntCode:intCode];
 }
 
-- (NSString *)emoji {
-    return [NSString emojiWithStringCode:self];
+- (NSString *)hm_emoji {
+    return [NSString hm_emojiWithStringCode:self];
 }
 
 @end

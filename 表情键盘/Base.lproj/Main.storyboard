@@ -24,8 +24,9 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="分享新鲜事..."/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxInputLength">
-                                        <integer key="value" value="10"/>
+                                        <integer key="value" value="140"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useEmoticonInputView" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </textView>
                         </subviews>
@@ -38,6 +39,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NSX-NM-Ahg">
+                        <barButtonItem key="leftBarButtonItem" title="切换键盘" id="1PM-Z6-xiU">
+                            <connections>
+                                <action selector="switchInputView:" destination="BYZ-38-t0r" id="Dg7-y8-mGY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="显示表情文本" id="lm4-9M-UA1">
                             <connections>
                                 <action selector="showText:" destination="BYZ-38-t0r" id="eg6-CF-d0W"/>
