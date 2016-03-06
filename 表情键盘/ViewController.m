@@ -23,14 +23,17 @@
     // 1. 设置用户标示 - 用于保存最近使用表情
     [HMEmoticonManager sharedManager].userIdentifier = @"刀哥";
     
-    // 2. 监听键盘通知
+    // 2. 设置表情输入视图
+    _textView.useEmoticonInputView = YES;
+    
+    // 3. 监听键盘通知
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(keyboardWillChanged:)
      name:UIKeyboardWillChangeFrameNotification
      object:nil];
     
-    // 3. 通过表情描述字符串设置属性字符串
+    // 4. 通过表情描述字符串设置属性字符串
     NSString *text = @"[爱你]啊[笑哈哈]";
     NSAttributedString *attributeText = [[HMEmoticonManager sharedManager]
                                          emoticonStringWithString:text
@@ -42,6 +45,8 @@
     [super viewDidAppear:animated];
     
     [_textView becomeFirstResponder];
+    
+    NSLog(@"%@", _textView.inputView);
 }
 
 - (void)dealloc {

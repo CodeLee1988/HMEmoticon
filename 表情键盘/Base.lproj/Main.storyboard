@@ -26,7 +26,6 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxInputLength">
                                         <integer key="value" value="140"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="useEmoticonInputView" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </textView>
                         </subviews>
