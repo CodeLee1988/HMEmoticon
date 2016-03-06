@@ -24,13 +24,16 @@
     return self;
 }
 
-+ (NSAttributedString *)emoticonStringWithEmoticon:(HMEmoticon *)emoticon font:(UIFont *)font {
++ (NSAttributedString *)emoticonStringWithEmoticon:(HMEmoticon *)emoticon font:(UIFont *)font textColor:(UIColor * _Nonnull)textColor {
     
     HMEmoticonAttachment *attachment = [[HMEmoticonAttachment alloc] initWithEmoticon:emoticon font:font];
     
     NSMutableAttributedString *emoticonStr = [[NSMutableAttributedString alloc] initWithAttributedString:
                                               [NSAttributedString attributedStringWithAttachment:attachment]];
-    [emoticonStr addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, 1)];
+    
+    [emoticonStr addAttributes: @{NSFontAttributeName: font,
+                                  NSForegroundColorAttributeName: textColor}
+                         range:NSMakeRange(0, 1)];
     
     return emoticonStr.copy;
 }

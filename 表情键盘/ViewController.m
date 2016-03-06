@@ -42,7 +42,8 @@
     NSString *text = @"[爱你]啊[笑哈哈]";
     NSAttributedString *attributeText = [[HMEmoticonManager sharedManager]
                                          emoticonStringWithString:text
-                                         font:_textView.font];
+                                         font:_textView.font
+                                         textColor:_textView.textColor];
     _textView.attributedText = attributeText;
 }
 

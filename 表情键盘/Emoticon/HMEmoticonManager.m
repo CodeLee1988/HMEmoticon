@@ -46,11 +46,12 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
 }
 
 #pragma mark - 字符串转换
-- (NSAttributedString *)emoticonStringWithString:(NSString *)string font:(UIFont *)font {
+- (NSAttributedString *)emoticonStringWithString:(NSString *)string font:(UIFont *)font textColor:(UIColor *)textColor {
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
                                                    initWithString:string
-                                                   attributes:@{NSFontAttributeName: font}];
+                                                   attributes:@{NSFontAttributeName: font,
+                                                                NSForegroundColorAttributeName: textColor}];
     
     NSString *pattern = @"\\[.*?\\]";
     NSRegularExpression *regx = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:NULL];
@@ -63,7 +64,7 @@ NSString *const HMEmoticonFileName = @".emoticons.json";
         
         HMEmoticon *emoticon = [self emoticonWithString:str];
         if (emoticon != nil) {
-            NSAttributedString *emoticonString = [HMEmoticonAttachment emoticonStringWithEmoticon:emoticon font:font];
+            NSAttributedString *emoticonString = [HMEmoticonAttachment emoticonStringWithEmoticon:emoticon font:font textColor:textColor];
             
             [attributedString replaceCharactersInRange:range withAttributedString:emoticonString];
         }

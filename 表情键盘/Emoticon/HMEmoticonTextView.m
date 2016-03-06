@@ -72,6 +72,9 @@
     self = [super initWithFrame:frame textContainer:textContainer];
     
     if (self) {
+        self.textColor = [UIColor darkGrayColor];
+        self.font = [UIFont systemFontOfSize:18];
+
         [self prepareUI];
     }
     
@@ -137,7 +140,7 @@
     
     NSMutableAttributedString *attributeText = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
     
-    NSAttributedString *emoticonStr = [HMEmoticonAttachment emoticonStringWithEmoticon:emoticon font:self.font];
+    NSAttributedString *emoticonStr = [HMEmoticonAttachment emoticonStringWithEmoticon:emoticon font:self.font textColor:self.textColor];
     
     NSRange range = self.selectedRange;
     [attributeText replaceCharactersInRange:range withAttributedString:emoticonStr];
@@ -216,9 +219,6 @@
      name:UITextViewTextDidChangeNotification object:nil];
     
     // 2. 默认属性
-    self.textColor = [UIColor darkGrayColor];
-    self.font = [UIFont systemFontOfSize:18];
-    
     self.alwaysBounceVertical = YES;
     self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     

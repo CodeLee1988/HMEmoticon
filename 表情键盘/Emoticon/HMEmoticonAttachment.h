@@ -14,10 +14,11 @@
 
 /// 使用表情模型创建表情字符串
 ///
-/// @param emoticon 表情模型
-/// @param font     字体
+/// @param emoticon  表情模型
+/// @param font      字体
+/// @param textColor 颜色
 ///
 /// @return 属性文本
-+ (NSAttributedString * _Nonnull)emoticonStringWithEmoticon:(HMEmoticon * _Nullable)emoticon font:(UIFont * _Nonnull)font;
++ (NSAttributedString * _Nonnull)emoticonStringWithEmoticon:(HMEmoticon * _Nullable)emoticon font:(UIFont * _Nonnull)font textColor:(UIColor * _Nonnull)textColor;
 
 @end
