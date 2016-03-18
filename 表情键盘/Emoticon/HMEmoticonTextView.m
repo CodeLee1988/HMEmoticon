@@ -7,7 +7,6 @@
 //
 
 #import "HMEmoticonTextView.h"
-#import "HMEmoticonManager.h"
 #import "HMEmoticonAttachment.h"
 #import "HMEmoticonInputView.h"
 
@@ -31,11 +30,8 @@
         return;
     }
     
-    [self resignFirstResponder];
-    
     self.inputView = (self.inputView == nil) ? _emoticonInputView : nil;
-    
-    [self becomeFirstResponder];
+    [self reloadInputViews];
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {
@@ -63,7 +59,7 @@
 
 - (UIColor *)textColor {
     UIColor *color = [super textColor];
-
+    
     return (color == nil) ? [UIColor darkGrayColor] : color;
 }
 
@@ -80,7 +76,7 @@
     if (self) {
         self.textColor = [UIColor darkGrayColor];
         self.font = [UIFont systemFontOfSize:18];
-
+        
         [self prepareUI];
     }
     

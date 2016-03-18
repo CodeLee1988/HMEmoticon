@@ -73,12 +73,10 @@
 - (void)keyboardWillChanged:(NSNotification *)notification {
     
     CGRect rect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    NSInteger curve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
     _bottomConstraint.constant = self.view.bounds.size.height - rect.origin.y;
-    [UIView animateWithDuration:0.25 animations:^{
-        [UIView setAnimationCurve:curve];
-        
+    [UIView animateWithDuration:duration animations:^{
         [self.view layoutIfNeeded];
     }];
 }
