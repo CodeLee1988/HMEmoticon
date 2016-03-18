@@ -7,6 +7,10 @@
 
 仿新浪微博表情键盘
 
+## 屏幕截图
+
+![](https://github.com/itheima-developer/HMEmoticon/blob/master/screenshots/screenshots01.gif?raw=true">)
+
 ## 功能
 
 * 仿新浪微博表情键盘
