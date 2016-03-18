@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HMEmoticonManager.h"
 @class HMEmoticon;
 
 IB_DESIGNABLE
