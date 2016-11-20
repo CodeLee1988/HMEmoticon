@@ -18,6 +18,9 @@
 @property (nonatomic, weak, nullable) id<HMEmoticonCellDelegate> delegate;
 /// 表情数组
 @property (nonatomic, nonnull) NSArray <HMEmoticon *> *emoticons;
+/// cell 对应的 indexPath
+@property (nonatomic, nonnull) NSIndexPath *indexPath;
+
 
 @end
 

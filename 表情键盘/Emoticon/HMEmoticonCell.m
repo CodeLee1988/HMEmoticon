@@ -14,6 +14,8 @@
 
 @implementation HMEmoticonCell {
     HMEmoticonTipView *_tipView;
+    UILabel *_recentLabel;
+    HMEmoticonButton *_deleteButton;
 }
 
 #pragma mark - 设置数据
@@ -23,7 +25,7 @@
     for (UIView *v in self.contentView.subviews) {
         v.hidden = YES;
     }
-    self.contentView.subviews.lastObject.hidden = NO;
+    _deleteButton.hidden = NO;
     
     NSInteger index = 0;
     for (HMEmoticon *e in _emoticons) {
@@ -31,6 +33,11 @@
         
         btn.emoticon = e;
     }
+}
+
+- (void)setIndexPath:(NSIndexPath *)indexPath {
+    _indexPath = indexPath;
+    _recentLabel.hidden = indexPath.section != 0;
 }
 
 #pragma mark - 构造函数
@@ -85,7 +92,7 @@
             _tipView.center = buttonCenter;
             _tipView.emoticon = button.emoticon;
             
-            _tipView.hidden = (button == self.contentView.subviews.lastObject);
+            _tipView.hidden = (button == _deleteButton);
         }
             break;
         case UIGestureRecognizerStateEnded:
@@ -109,7 +116,7 @@
     NSInteger colCount = 7;
     
     CGFloat leftMargin = 8;
-    CGFloat bottomMargin = 16;
+    CGFloat bottomMargin = 20;
     
     CGFloat w = ceil((self.bounds.size.width - 2 * leftMargin) / colCount);
     CGFloat h = ceil((self.bounds.size.height - bottomMargin) / rowCount);
@@ -129,10 +136,34 @@
     }
     
     // 删除按钮
-    ((HMEmoticonButton *)self.contentView.subviews.lastObject).deleteButton = YES;
+    _deleteButton = ((HMEmoticonButton *)self.contentView.subviews.lastObject);
+    _deleteButton.deleteButton = YES;
     
     // 提示视图
     _tipView = [[HMEmoticonTipView alloc] init];
+    
+    _recentLabel = [[UILabel alloc] init];
+    _recentLabel.text = @"最近使用的表情";
+    _recentLabel.textColor = [UIColor lightGrayColor];
+    _recentLabel.font = [UIFont systemFontOfSize:12];
+    [self.contentView addSubview:_recentLabel];
+    
+    _recentLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_recentLabel
+                                                             attribute:NSLayoutAttributeCenterX
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.contentView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                            multiplier:1
+                                                              constant:0]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_recentLabel
+                                                             attribute:NSLayoutAttributeBottom
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.contentView
+                                                             attribute:NSLayoutAttributeBottom
+                                                            multiplier:1
+                                                              constant:-5]];
 }
 
 @end

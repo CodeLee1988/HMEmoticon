@@ -53,7 +53,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
 #pragma mark - 构造函数
 - (instancetype)initWithSelectedEmoticon:(void (^)(HMEmoticon * _Nullable, BOOL))selectedEmoticon {
     CGRect frame = [UIScreen mainScreen].bounds;
-    frame.size.height = 258;
+    frame.size.height = 216;
     
     self = [super initWithFrame:frame];
     if (self) {
@@ -114,6 +114,7 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
                             forIndexPath:indexPath];
     
     cell.emoticons = [[HMEmoticonManager sharedManager] emoticonsWithIndexPath:indexPath];
+    cell.indexPath = indexPath;
     cell.delegate = self;
     
     return cell;
