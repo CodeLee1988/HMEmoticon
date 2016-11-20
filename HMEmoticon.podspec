@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "HMEmoticon"
-  s.version      = "1.0.8"
+  s.version      = "1.0.9"
   s.summary      = "仿新浪微博表情键盘"
   s.homepage     = "https://github.com/itheima-developer/HMEmoticon"
   s.license      = "MIT"
