@@ -95,6 +95,11 @@ NSString *const HMEmoticonCellIdentifier = @"HMEmoticonCellIdentifier";
     /// 添加最近使用表情
     if (emoticon != nil) {
         [[HMEmoticonManager sharedManager] addRecentEmoticon:emoticon];
+        
+        // 如果当前停留不是在默认表情页，就更新默认表情页数据
+        if ([_collectionView indexPathsForVisibleItems].firstObject.section != 0) {
+            [_collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]];
+        }
     }
 }
 
