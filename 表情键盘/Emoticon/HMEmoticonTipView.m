@@ -41,7 +41,7 @@
     self = [super initWithImage:[UIImage hm_imageNamed:@"emoticon_keyboard_magnifier"]];
     if (self) {
         // 计算按钮大小
-        CGFloat width = 32;
+        CGFloat width = 40;
         CGFloat x = (self.bounds.size.width - width) * 0.5;
         CGRect rect = CGRectMake(x, 8, width, width);
         

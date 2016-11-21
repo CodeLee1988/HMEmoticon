@@ -44,6 +44,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.titleLabel.font = [UIFont systemFontOfSize:32];
+        self.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
     }
     return self;
 }
