@@ -24,6 +24,13 @@
 /// @return 带表情图片的属性文本
 - (NSAttributedString * _Nonnull)emoticonStringWithString:(NSString * _Nonnull)string font:(UIFont * _Nonnull)font textColor:(UIColor * _Nonnull)textColor;
 
+/// 取到表情字符串对应的表情模型
+///
+/// @param string    字符串
+///
+/// @return 表情模型
+- (HMEmoticon * _Nullable)emoticonWithString:(NSString * _Nonnull)string;
+
 /// 表情包数组
 @property (nonatomic, nonnull) NSMutableArray <HMEmoticonPackage *>*packages;
 /// 用户标识符，默认是 cn.itcast.DefaultUser
